@@ -1,0 +1,49 @@
+# Local credentials: commit only the deliberately blank template.
+.env
+.env.*
+!.env.example
+.npmrc
+.netrc
+.pypirc
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+keystore/
+keystores/
+wallets/
+secrets/
+.secrets/
+credentials/
+credentials.json
+service-account*.json
+
+# Machine-specific deployments, RPC settings and private contract registrations.
+config/chain.config.json
+config/registered-contracts.json
+config/*.local.*
+
+# Dependencies and generated build/test output.
+node_modules/
+artifacts/
+cache/
+coverage/
+test/auto/results/
+audit/*RESULTS.json
+audit/*results.json
+reports/
+logs/
+*.log
+*.zip
+*.tar.gz
+*.bak
+*.backup
+*.tmp
+
+# Editor / operating-system files.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

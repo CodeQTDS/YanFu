@@ -1,0 +1,511 @@
+{
+  "version": 2,
+  "description": "Configurable governance capabilities available to the AI planner. YanFu groups capabilities into packs and supports macro expansion plus registered contract types.",
+  "capabilities": [
+    {
+      "id": "treasury.transferERC20",
+      "label": "Treasury ERC20 Transfer",
+      "contract": "Treasury",
+      "addressRef": "treasury",
+      "functionName": "transferERC20",
+      "signature": "transferERC20(address,address,uint256)",
+      "abi": "function transferERC20(address token,address to,uint256 amount)",
+      "description": "Transfer ERC20 tokens held by the DAO Treasury to one recipient.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "token",
+          "type": "address",
+          "semantic": "token-address",
+          "defaultRef": "token"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "semantic": "recipient"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "semantic": "token-amount",
+          "decimals": 18
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 10,
+        "category": "treasury-transfer"
+      },
+      "pack": "Treasury Pack",
+      "contractType": "treasury",
+      "analysisHints": [
+        "Transfer ERC20 assets from the DAO Treasury. Compare the requested amount with current Treasury balance and verify the recipient."
+      ]
+    },
+    {
+      "id": "treasury.batchTransferERC20",
+      "label": "Treasury Batch ERC20 Transfer",
+      "contract": "Treasury",
+      "addressRef": "treasury",
+      "functionName": "batchTransferERC20",
+      "signature": "batchTransferERC20(address,address[],uint256[])",
+      "abi": "function batchTransferERC20(address token,address[] recipients,uint256[] amounts)",
+      "description": "Transfer one ERC20 token held by the DAO Treasury to multiple recipients atomically.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "token",
+          "type": "address",
+          "semantic": "token-address",
+          "defaultRef": "token"
+        },
+        {
+          "name": "recipients",
+          "type": "address[]",
+          "semantic": "recipient-list"
+        },
+        {
+          "name": "amounts",
+          "type": "uint256[]",
+          "semantic": "token-amount-list",
+          "decimals": 18
+        }
+      ],
+      "validation": {
+        "equalLength": [
+          [
+            "recipients",
+            "amounts"
+          ]
+        ],
+        "minArrayLength": {
+          "recipients": 1,
+          "amounts": 1
+        },
+        "maxArrayLength": {
+          "recipients": 50,
+          "amounts": 50
+        }
+      },
+      "riskProfile": {
+        "itemArgument": "recipients",
+        "weightPerItem": 10,
+        "maxWeight": 60,
+        "category": "treasury-transfer"
+      },
+      "pack": "Treasury Pack",
+      "contractType": "treasury",
+      "analysisHints": [
+        "Batch ERC20 Treasury payment. Check recipient/amount alignment, aggregate outflow and current Treasury balance."
+      ]
+    },
+    {
+      "id": "treasury.transferETH",
+      "label": "Treasury ETH Transfer",
+      "contract": "Treasury",
+      "addressRef": "treasury",
+      "functionName": "transferETH",
+      "signature": "transferETH(address,uint256)",
+      "abi": "function transferETH(address payable to,uint256 amount)",
+      "description": "Transfer native ETH held by the DAO Treasury to one recipient.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "to",
+          "type": "address",
+          "semantic": "recipient"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "semantic": "ether-amount"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 20,
+        "category": "treasury-transfer"
+      },
+      "pack": "Treasury Pack",
+      "contractType": "treasury",
+      "analysisHints": [
+        "Transfer native ETH from the DAO Treasury. Compare outflow with Treasury ETH balance."
+      ]
+    },
+    {
+      "id": "treasury.batchTransferETH",
+      "label": "Treasury Batch ETH Transfer",
+      "pack": "Treasury Pack",
+      "contractType": "treasury",
+      "contract": "Treasury",
+      "addressRef": "treasury",
+      "functionName": "batchTransferETH",
+      "signature": "batchTransferETH(address[],uint256[])",
+      "description": "Atomically send native ETH from the DAO Treasury to multiple recipients in one Treasury call. If any recipient transfer fails, the entire batch transaction reverts.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "recipients",
+          "type": "address[]",
+          "semantic": "recipient-list"
+        },
+        {
+          "name": "amounts",
+          "type": "uint256[]",
+          "semantic": "ether-amount-list"
+        }
+      ],
+      "validation": {
+        "equalLength": [
+          [
+            "recipients",
+            "amounts"
+          ]
+        ],
+        "minArrayLength": {
+          "recipients": 1,
+          "amounts": 1
+        },
+        "maxArrayLength": {
+          "recipients": 50,
+          "amounts": 50
+        }
+      },
+      "riskProfile": {
+        "itemArgument": "recipients",
+        "weightPerItem": 20,
+        "maxWeight": 80,
+        "category": "treasury-transfer"
+      },
+      "analysisHints": [
+        "Atomic Treasury batch ETH transfer. The Treasury contract checks batch size, equal array lengths and total available ETH before sending.",
+        "Because all recipient sends occur in one EVM call, any failed recipient causes the complete batch to revert, including earlier sends in the same batch."
+      ],
+      "abi": "function batchTransferETH(address[] recipients,uint256[] amounts)"
+    },
+    {
+      "id": "token.approve",
+      "label": "Governance Token Approval",
+      "contract": "GovernanceToken",
+      "addressRef": "token",
+      "functionName": "approve",
+      "signature": "approve(address,uint256)",
+      "abi": "function approve(address spender,uint256 amount)",
+      "description": "Approve an ERC20 allowance from the governance token contract.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "spender",
+          "type": "address",
+          "semantic": "spender"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "semantic": "token-amount",
+          "decimals": 18
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 25,
+        "category": "permission"
+      },
+      "pack": "Treasury Pack",
+      "contractType": "erc20",
+      "analysisHints": [
+        "ERC20 approval. Confirm the caller/owner semantics and spender authority before treating it as Treasury allowance management."
+      ]
+    },
+    {
+      "id": "daoSettings.setRewardRate",
+      "label": "Set DAO Reward Rate",
+      "contract": "DAOSettings",
+      "addressRef": "daoSettings",
+      "functionName": "setRewardRate",
+      "signature": "setRewardRate(uint256)",
+      "abi": "function setRewardRate(uint256 newRate)",
+      "description": "Change the DAO reward rate.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "newRate",
+          "type": "uint256",
+          "semantic": "integer"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 15,
+        "category": "settings"
+      },
+      "pack": "Governance Pack",
+      "contractType": "dao-settings",
+      "analysisHints": [
+        "DAO application setting change. Compare current and proposed value."
+      ]
+    },
+    {
+      "id": "daoSettings.setMessage",
+      "label": "Set DAO Message",
+      "contract": "DAOSettings",
+      "addressRef": "daoSettings",
+      "functionName": "setMessage",
+      "signature": "setMessage(string)",
+      "abi": "function setMessage(string newMessage)",
+      "description": "Change the DAO message string.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "newMessage",
+          "type": "string",
+          "semantic": "text"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 5,
+        "category": "settings"
+      },
+      "pack": "Governance Pack",
+      "contractType": "dao-settings",
+      "analysisHints": [
+        "DAO application setting change. Compare current and proposed value."
+      ]
+    },
+    {
+      "id": "factory.deployContract",
+      "label": "CREATE2 Contract Deployment",
+      "contract": "DAOContractFactory",
+      "addressRef": "contractFactory",
+      "functionName": "deployContract",
+      "signature": "deployContract(bytes,bytes32)",
+      "abi": "function deployContract(bytes bytecode,bytes32 salt) returns(address)",
+      "description": "Deploy contract creation bytecode through the DAO-controlled CREATE2 factory.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "bytecode",
+          "type": "bytes",
+          "semantic": "creation-bytecode",
+          "protected": true
+        },
+        {
+          "name": "salt",
+          "type": "bytes32",
+          "semantic": "create2-salt",
+          "protected": true
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 45,
+        "category": "deployment"
+      },
+      "pack": "Upgrade Pack",
+      "contractType": "deployment",
+      "analysisHints": [
+        "Protected CREATE2 deployment. Preserve bytecode and salt exactly and treat deployment as high risk."
+      ]
+    },
+    {
+      "id": "governor.setVotingDelay",
+      "label": "Set Voting Delay",
+      "pack": "Governance Pack",
+      "contractType": "governor-settings",
+      "contract": "MyGovernor",
+      "addressRef": "governor",
+      "functionName": "setVotingDelay",
+      "signature": "setVotingDelay(uint256)",
+      "abi": "function setVotingDelay(uint256 newVotingDelay)",
+      "description": "Change the number of blocks between proposal creation and voting start.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "newVotingDelay",
+          "type": "uint256",
+          "semantic": "block-count"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 25,
+        "category": "governance-parameter"
+      },
+      "analysisHints": [
+        "Compare the new voting delay with the current governor.votingDelay value. Shorter delays reduce reaction time; longer delays slow governance."
+      ]
+    },
+    {
+      "id": "governor.setVotingPeriod",
+      "label": "Set Voting Period",
+      "pack": "Governance Pack",
+      "contractType": "governor-settings",
+      "contract": "MyGovernor",
+      "addressRef": "governor",
+      "functionName": "setVotingPeriod",
+      "signature": "setVotingPeriod(uint256)",
+      "abi": "function setVotingPeriod(uint256 newVotingPeriod)",
+      "description": "Change the number of blocks during which votes may be cast.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "newVotingPeriod",
+          "type": "uint256",
+          "semantic": "block-count"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 25,
+        "category": "governance-parameter"
+      },
+      "analysisHints": [
+        "Compare the new voting period with the current governor.votingPeriod value and explain the governance participation impact."
+      ]
+    },
+    {
+      "id": "governor.setProposalThreshold",
+      "label": "Set Proposal Threshold",
+      "pack": "Governance Pack",
+      "contractType": "governor-settings",
+      "contract": "MyGovernor",
+      "addressRef": "governor",
+      "functionName": "setProposalThreshold",
+      "signature": "setProposalThreshold(uint256)",
+      "abi": "function setProposalThreshold(uint256 newProposalThreshold)",
+      "description": "Change the voting-power threshold required to create a proposal.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "newProposalThreshold",
+          "type": "uint256",
+          "semantic": "token-amount",
+          "decimals": 18
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 30,
+        "category": "governance-parameter"
+      },
+      "analysisHints": [
+        "Compare the new proposal threshold with the current governor.proposalThreshold value. YanFu encodes the human token amount using 18 decimals for the current governance token."
+      ]
+    },
+    {
+      "id": "governor.updateQuorumNumerator",
+      "label": "Update Quorum Numerator",
+      "pack": "Governance Pack",
+      "contractType": "governor-quorum",
+      "contract": "MyGovernor",
+      "addressRef": "governor",
+      "functionName": "updateQuorumNumerator",
+      "signature": "updateQuorumNumerator(uint256)",
+      "abi": "function updateQuorumNumerator(uint256 newQuorumNumerator)",
+      "description": "Change the quorum percentage numerator used by GovernorVotesQuorumFraction.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "newQuorumNumerator",
+          "type": "uint256",
+          "semantic": "percentage-numerator"
+        }
+      ],
+      "validation": {
+        "maxValue": {
+          "newQuorumNumerator": "100"
+        }
+      },
+      "riskProfile": {
+        "flatWeight": 35,
+        "category": "governance-quorum"
+      },
+      "analysisHints": [
+        "Compare the new quorum numerator with the current quorum numerator. Higher values increase participation requirements; lower values make proposals easier to pass."
+      ]
+    },
+    {
+      "id": "timelock.updateDelay",
+      "label": "Update Timelock Delay",
+      "pack": "Governance Pack",
+      "contractType": "timelock",
+      "contract": "TimelockController",
+      "addressRef": "timelock",
+      "functionName": "updateDelay",
+      "signature": "updateDelay(uint256)",
+      "abi": "function updateDelay(uint256 newDelay)",
+      "description": "Change the TimelockController minimum execution delay, in seconds.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "newDelay",
+          "type": "uint256",
+          "semantic": "duration-seconds"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 40,
+        "category": "governance-timelock"
+      },
+      "analysisHints": [
+        "Compare the new delay in seconds with current timelockMinDelay. Reducing the delay shortens the window for users to react to approved governance actions."
+      ]
+    },
+    {
+      "id": "timelock.grantRole",
+      "label": "Grant Timelock Role",
+      "pack": "Administration Pack",
+      "contractType": "access-control",
+      "contract": "TimelockController",
+      "addressRef": "timelock",
+      "functionName": "grantRole",
+      "signature": "grantRole(bytes32,address)",
+      "abi": "function grantRole(bytes32 role,address account)",
+      "description": "Grant an AccessControl role on the TimelockController. Known symbolic roles such as PROPOSER_ROLE, EXECUTOR_ROLE, CANCELLER_ROLE and TIMELOCK_ADMIN_ROLE are resolved deterministically.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "role",
+          "type": "bytes32",
+          "semantic": "access-role"
+        },
+        {
+          "name": "account",
+          "type": "address",
+          "semantic": "account"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 50,
+        "category": "access-control"
+      },
+      "analysisHints": [
+        "Role grants change authority. Identify the role, account and resulting governance power explicitly. TIMELOCK_ADMIN_ROLE is especially sensitive."
+      ]
+    },
+    {
+      "id": "timelock.revokeRole",
+      "label": "Revoke Timelock Role",
+      "pack": "Administration Pack",
+      "contractType": "access-control",
+      "contract": "TimelockController",
+      "addressRef": "timelock",
+      "functionName": "revokeRole",
+      "signature": "revokeRole(bytes32,address)",
+      "abi": "function revokeRole(bytes32 role,address account)",
+      "description": "Revoke an AccessControl role on the TimelockController. Known symbolic role names are resolved deterministically.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "role",
+          "type": "bytes32",
+          "semantic": "access-role"
+        },
+        {
+          "name": "account",
+          "type": "address",
+          "semantic": "account"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 45,
+        "category": "access-control"
+      },
+      "analysisHints": [
+        "Role revocation can remove critical governance capabilities. Identify whether the account is the last holder of an operationally necessary role."
+      ]
+    }
+  ]
+}

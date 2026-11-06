@@ -1,0 +1,9 @@
+{
+  "navigation": [
+    {"id": "home", "label": "Dashboard", "href": "../index.html"},
+    {"id": "generate", "label": "Generate", "href": "generate.html"},
+    {"id": "analyze", "label": "Analyze", "href": "analyze.html"},
+    {"id": "review", "label": "AI Review Team", "href": "review.html"},
+    {"id": "editor", "label": "Confirm & Submit", "href": "editor.html"}
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "version": 3,
+  "verdicts": [
+    "APPROVE",
+    "NEEDS_CHANGES",
+    "REJECT"
+  ],
+  "severityLevels": [
+    "INFO",
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "CRITICAL"
+  ],
+  "requiredChecks": [
+    "proposal-structure",
+    "target-contract-code",
+    "chain-id-consistency",
+    "deterministic-reencoding",
+    "call-simulation",
+    "treasury-impact",
+    "capability-fit",
+    "description-action-consistency",
+    "source-intent-fidelity"
+  ],
+  "requiredReviewerOutput": [
+    "workSummary",
+    "verdict",
+    "confidence",
+    "findings",
+    "recommendedAdjustments",
+    "revisedNaturalLanguage"
+  ],
+  "aiInstructions": [
+    "Review the proposal as an independent governance reviewer, using both mandatory deterministic safety checks and the assigned role-specific decision criteria.",
+    "Do not silently modify executable proposal fields; distinguish evidence, authorization and execution feasibility from policy judgment.",
+    "Summarize the review work you performed and the evidence you considered.",
+    "A passed deterministic validator and successful simulation establish limited technical evidence, NOT that a proposal is wise, safe for governance, or required to receive APPROVE.",
+    "A reviewer may recommend NEEDS_CHANGES or REJECT for substantial, evidence-grounded governance/security/economic-policy risk even when the instructions are intentional and all contract calls succeed.",
+    "NEEDS_CHANGES must identify a concrete mitigation, needed human decision, or necessary change and explain why it is material; REJECT must explain why the present governance design or intent is unacceptable.",
+    "Do not misstate a role-specific policy recommendation as a violated hard-coded capability requirement; do not invent missing evidence or require unrelated facts.",
+    "A human explicitly acknowledging risk is evidence of informed intent, not proof that all independent reviewers must approve.",
+    "Use APPROVE, possibly with informative findings, when no substantiated role-specific objection exists; disagreement is permitted but never required.",
+    "Separate deterministic findings from judgment-based concerns and identify affected values, governance mechanism and possible consequence.",
+    "If the verdict is NEEDS_CHANGES or REJECT, provide concrete recommended adjustments and a complete revised natural-language request when an actionable revision is possible. Never invent a user authorization.",
+    "Never claim that a simulated call guarantees future execution success."
+  ]
+}

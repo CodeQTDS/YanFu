@@ -1,0 +1,6 @@
+{
+  "timelockMinDelaySeconds": 120,
+  "treasuryTokenAllocation": "900000",
+  "openExecutor": true,
+  "grantGovernorAsSoleProposer": true
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YanFu Governance Compiler v1.0</title>
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">YF</div><div class="brand-text"><strong>YanFu Governance Compiler v1.0</strong><span>Reliable intent-to-proposal workflow</span></div></div>
+      <nav id="appNav" class="nav"></nav>
+      <div class="sidebar-footer">Generation, analysis and review are AI-assisted. On-chain submission always requires an explicit wallet transaction.</div>
+    </aside>
+    <main class="main">
+      <header class="page-header">
+        <div><h1>Governance workspace</h1><p>Translate natural-language governance intent into deterministic Governor proposals, test them against the chain, review them with up to five role-based AI reviewers, and keep final authority with a human wallet.</p></div>
+        <div class="badge" id="chainSummary">Loading chain…</div>
+      </header>
+
+      <div id="workflowBar" class="workflow"></div>
+
+      <section class="grid four"></section>
+      <section class="grid two">
+        <div class="card"><h3>Proposal</h3><div class="kpi" id="proposalState">—</div><p>Natural language converted to deterministic Governor calldata.</p><a class="btn primary" href="pages/generate.html">Generate proposal</a></div>
+        <div class="card"><h3>Analysis</h3><div class="kpi" id="analysisState">—</div><p>Fresh chain context, call simulation and AI-assisted risk analysis.</p><a id="dashboardAnalyzeLink" class="btn" href="pages/analyze.html">Open analysis</a></div>
+        <div class="card"><h3>AI review team</h3><div class="kpi" id="reviewState">—</div><p>Select one to five role-based reviewers, optionally reuse models across different roles, and return revisions to the compiler when needed.</p><a id="dashboardReviewLink" class="btn" href="pages/review.html">Open AI review team</a></div>
+        <div class="card"><h3>Human confirmation</h3><div class="kpi" id="submitState">—</div><p>Edit if needed, re-review the exact fingerprint, validate again, explicitly confirm, then sign through MetaMask.</p><a id="dashboardEditorLink" class="btn success" href="pages/editor.html">Confirm & submit</a></div>
+      </section>
+
+      <section class="card" style="margin-top:20px">
+        <div class="actions" style="justify-content:space-between">
+          <div><strong>Local workflow state</strong><div class="muted small">Last updated: <span id="lastUpdated">—</span></div></div>
+          <button id="resetWorkflow" class="btn danger">Clear workflow</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/state.js"></script>
+  <script src="assets/js/nav.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>

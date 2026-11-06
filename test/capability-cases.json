@@ -1,0 +1,372 @@
+{
+  "version": "1.0.0",
+  "description": "Natural-language and deterministic-plan cases for YanFu v1.0 horizontal capability expansion.",
+  "cases": [
+    {
+      "id": "treasury-single-erc20-regression",
+      "type": "built-in",
+      "text": "Transfer 25 MTK from the DAO Treasury to 0x1111111111111111111111111111111111111111.",
+      "expectedCapabilities": [
+        "treasury.transferERC20"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "ERC20 payment",
+        "operations": [
+          {
+            "capabilityId": "treasury.transferERC20",
+            "arguments": {
+              "to": "0x1111111111111111111111111111111111111111",
+              "amount": "25"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "treasury-batch-erc20-regression",
+      "type": "built-in",
+      "text": "Using one batch payment, send 10 MTK to 0x1111111111111111111111111111111111111111 and 20 MTK to 0x2222222222222222222222222222222222222222.",
+      "expectedCapabilities": [
+        "treasury.batchTransferERC20"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Batch ERC20 payment",
+        "operations": [
+          {
+            "capabilityId": "treasury.batchTransferERC20",
+            "arguments": {
+              "recipients": [
+                "0x1111111111111111111111111111111111111111",
+                "0x2222222222222222222222222222222222222222"
+              ],
+              "amounts": [
+                "10",
+                "20"
+              ]
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "treasury-batch-eth-new",
+      "type": "built-in-atomic",
+      "text": "Pay 1.25 ETH to 0x1111111111111111111111111111111111111111 and 0.75 ETH to 0x2222222222222222222222222222222222222222 from the DAO Treasury as one batch request.",
+      "expectedCapabilities": [
+        "treasury.batchTransferETH"
+      ],
+      "expectedExecutableActions": 1,
+      "plan": {
+        "status": "ready",
+        "description": "Batch ETH payment",
+        "operations": [
+          {
+            "capabilityId": "treasury.batchTransferETH",
+            "arguments": {
+              "recipients": [
+                "0x1111111111111111111111111111111111111111",
+                "0x2222222222222222222222222222222222222222"
+              ],
+              "amounts": [
+                "1.25",
+                "0.75"
+              ]
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      },
+      "expectedFunctionName": "batchTransferETH",
+      "expectedEncodedAmountsWei": [
+        "1250000000000000000",
+        "750000000000000000"
+      ]
+    },
+    {
+      "id": "governance-voting-delay",
+      "type": "built-in",
+      "text": "Change the Governor voting delay to 12 blocks.",
+      "expectedCapabilities": [
+        "governor.setVotingDelay"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Set voting delay",
+        "operations": [
+          {
+            "capabilityId": "governor.setVotingDelay",
+            "arguments": {
+              "newVotingDelay": "12"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "governance-voting-period",
+      "type": "built-in",
+      "text": "Set the Governor voting period to 14400 blocks.",
+      "expectedCapabilities": [
+        "governor.setVotingPeriod"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Set voting period",
+        "operations": [
+          {
+            "capabilityId": "governor.setVotingPeriod",
+            "arguments": {
+              "newVotingPeriod": "14400"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "governance-proposal-threshold",
+      "type": "built-in",
+      "text": "Require 5000 MTK of voting power to create a proposal.",
+      "expectedCapabilities": [
+        "governor.setProposalThreshold"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Set proposal threshold",
+        "operations": [
+          {
+            "capabilityId": "governor.setProposalThreshold",
+            "arguments": {
+              "newProposalThreshold": "5000"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "governance-quorum",
+      "type": "built-in",
+      "text": "Update the Governor quorum numerator to 8 percent.",
+      "expectedCapabilities": [
+        "governor.updateQuorumNumerator"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Set quorum numerator",
+        "operations": [
+          {
+            "capabilityId": "governor.updateQuorumNumerator",
+            "arguments": {
+              "newQuorumNumerator": "8"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "governance-timelock-delay",
+      "type": "built-in",
+      "text": "Change the Timelock minimum delay to 3600 seconds.",
+      "expectedCapabilities": [
+        "timelock.updateDelay"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Set timelock delay",
+        "operations": [
+          {
+            "capabilityId": "timelock.updateDelay",
+            "arguments": {
+              "newDelay": "3600"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "administration-grant-role",
+      "type": "built-in",
+      "text": "Grant PROPOSER_ROLE on the Timelock to 0x3333333333333333333333333333333333333333.",
+      "expectedCapabilities": [
+        "timelock.grantRole"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Grant proposer role",
+        "operations": [
+          {
+            "capabilityId": "timelock.grantRole",
+            "arguments": {
+              "role": "PROPOSER_ROLE",
+              "account": "0x3333333333333333333333333333333333333333"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "administration-revoke-role",
+      "type": "built-in",
+      "text": "Revoke EXECUTOR_ROLE on the Timelock from 0x4444444444444444444444444444444444444444.",
+      "expectedCapabilities": [
+        "timelock.revokeRole"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Revoke executor role",
+        "operations": [
+          {
+            "capabilityId": "timelock.revokeRole",
+            "arguments": {
+              "role": "EXECUTOR_ROLE",
+              "account": "0x4444444444444444444444444444444444444444"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "registered-pause-template",
+      "type": "registered-template",
+      "text": "Pause the registered protocol controller.",
+      "registrationFixture": "protocolController",
+      "expectedCapabilities": [
+        "protocol.pause"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Pause protocol",
+        "operations": [
+          {
+            "capabilityId": "protocol.pause",
+            "arguments": {}
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "registered-ownership-template",
+      "type": "registered-template",
+      "text": "Transfer ownership of the registered protocol controller to 0x5555555555555555555555555555555555555555.",
+      "registrationFixture": "protocolController",
+      "expectedCapabilities": [
+        "protocol.transferOwnership"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Transfer ownership",
+        "operations": [
+          {
+            "capabilityId": "protocol.transferOwnership",
+            "arguments": {
+              "newOwner": "0x5555555555555555555555555555555555555555"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "registered-uups-upgrade-template",
+      "type": "registered-template",
+      "text": "Upgrade the registered protocol proxy to implementation 0x6666666666666666666666666666666666666666 with no initialization call.",
+      "registrationFixture": "protocolController",
+      "expectedCapabilities": [
+        "protocol.upgrade"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Upgrade protocol",
+        "operations": [
+          {
+            "capabilityId": "protocol.upgrade",
+            "arguments": {
+              "newImplementation": "0x6666666666666666666666666666666666666666",
+              "data": "0x"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "registered-erc721-template",
+      "type": "registered-template",
+      "text": "Safely transfer NFT #42 from 0x7777777777777777777777777777777777777777 to 0x8888888888888888888888888888888888888888 on the registered NFT contract.",
+      "registrationFixture": "nftCollection",
+      "expectedCapabilities": [
+        "nft.transfer721"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "Transfer NFT",
+        "operations": [
+          {
+            "capabilityId": "nft.transfer721",
+            "arguments": {
+              "from": "0x7777777777777777777777777777777777777777",
+              "to": "0x8888888888888888888888888888888888888888",
+              "tokenId": "42"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    },
+    {
+      "id": "registered-defi-inline",
+      "type": "registered-inline",
+      "text": "Use the registered DEX router to swap with amountIn 1000000, minimum output 950000, the configured path, recipient 0x9999999999999999999999999999999999999999 and deadline 2000000000.",
+      "registrationFixture": "dexRouter",
+      "expectedCapabilities": [
+        "defi.swapExactTokensForTokens"
+      ],
+      "plan": {
+        "status": "ready",
+        "description": "DEX swap",
+        "operations": [
+          {
+            "capabilityId": "defi.swapExactTokensForTokens",
+            "arguments": {
+              "amountIn": "1000000",
+              "amountOutMin": "950000",
+              "path": [
+                "0x1111111111111111111111111111111111111111",
+                "0x2222222222222222222222222222222222222222"
+              ],
+              "to": "0x9999999999999999999999999999999999999999",
+              "deadline": "2000000000"
+            }
+          }
+        ],
+        "unresolved": [],
+        "assumptions": []
+      }
+    }
+  ]
+}

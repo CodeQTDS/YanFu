@@ -1,0 +1,342 @@
+{
+  "version": 1,
+  "targetYanFuVersion": "1.0.0",
+  "description": "2026-10-30 full-suite DNS ENOTFOUND follow-up: 10 recorded FAIL cases and 6 negative-input cases falsely reported PASS. Six negative cases now require NEEDS_CLARIFICATION, known from the clean 2026-10-27 run; original source texts and positive-case expectations unchanged.",
+  "cases": [
+    {
+      "id": "builtin-governor-voting-period-positive",
+      "description": "Governance Pack: set Governor voting period.",
+      "text": "Change the Governor voting period to 14400 blocks.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingPeriod"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-governor-proposal-threshold-positive",
+      "description": "Governance Pack: set proposal threshold using a human token amount.",
+      "text": "Require 5000.5 MTK of voting power to create a governance proposal.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setProposalThreshold"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-governor-quorum-positive",
+      "description": "Governance Pack: update quorum numerator.",
+      "text": "Update the Governor quorum numerator to 8 percent.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-timelock-delay-positive",
+      "description": "Governance Pack: update Timelock minimum execution delay.",
+      "text": "Change the Timelock minimum execution delay to 3600 seconds.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.updateDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-timelock-grant-role-positive",
+      "description": "Administration Pack: grant a known symbolic Timelock role.",
+      "text": "Grant PROPOSER_ROLE on the Timelock to 0x5555555555555555555555555555555555555555.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.grantRole"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-timelock-revoke-role-positive",
+      "description": "Administration Pack: revoke a known symbolic Timelock role.",
+      "text": "Revoke EXECUTOR_ROLE on the Timelock from 0x6666666666666666666666666666666666666666.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.revokeRole"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-governance-positive",
+      "description": "Composition: two governance/application-setting changes in one proposal.",
+      "text": "In one governance proposal, change the Governor voting delay to 20 blocks and set the DAO message to \"Multi-action governance test\".",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay",
+            "daoSettings.setMessage"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-treasury-positive",
+      "description": "Composition: ERC20 and ETH Treasury transfers in one proposal.",
+      "text": "In one governance proposal, transfer 5 MTK from the DAO Treasury to 0x7777777777777777777777777777777777777777 and transfer 0.1 ETH from the DAO Treasury to 0x8888888888888888888888888888888888888888.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20",
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-governance-parameters-positive",
+      "description": "Composition: voting period, proposal threshold and quorum changes together.",
+      "text": "In one proposal, set the Governor voting period to 10000 blocks, set the proposal threshold to 2500 MTK, and set the quorum numerator to 6 percent.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingPeriod",
+            "governor.setProposalThreshold",
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 3,
+          "executableActions": 3
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-admin-positive",
+      "description": "Composition: grant one Timelock role and revoke another.",
+      "text": "In one proposal, grant CANCELLER_ROLE on the Timelock to 0x5555555555555555555555555555555555555555 and revoke EXECUTOR_ROLE from 0x6666666666666666666666666666666666666666.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.grantRole",
+            "timelock.revokeRole"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-quorum-above-100",
+      "description": "Capability constraint: quorum numerator cannot exceed 100.",
+      "text": "Set the Governor quorum numerator to 101 percent.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "NEEDS_CLARIFICATION"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-voting-delay-negative-number",
+      "description": "Numeric validation: voting delay cannot be negative.",
+      "text": "Set the Governor voting delay to -1 blocks.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "NEEDS_CLARIFICATION"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-timelock-delay-negative-number",
+      "description": "Numeric validation: Timelock delay cannot be negative.",
+      "text": "Set the Timelock minimum execution delay to -60 seconds.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "NEEDS_CLARIFICATION"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-treasury-transfer-missing-amount",
+      "description": "Clarification: Treasury transfer omits the amount.",
+      "text": "Transfer MTK from the DAO Treasury to 0x1111111111111111111111111111111111111111 but do not assume the amount.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "NEEDS_CLARIFICATION"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-batch-erc20-missing-one-amount",
+      "description": "Clarification/array alignment: one batch recipient has no specified amount.",
+      "text": "Make one atomic MTK batch transfer from the DAO Treasury: send 10 MTK to 0x1111111111111111111111111111111111111111, 20 MTK to 0x2222222222222222222222222222222222222222, and also pay 0x3333333333333333333333333333333333333333 but do not assume its amount.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "NEEDS_CLARIFICATION"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-batch-eth-missing-one-amount",
+      "description": "Clarification/array alignment: one ETH batch recipient has no amount.",
+      "text": "Make one atomic ETH batch payment from the DAO Treasury: send 1 ETH to 0x1111111111111111111111111111111111111111, 2 ETH to 0x2222222222222222222222222222222222222222, and also pay 0x3333333333333333333333333333333333333333 but do not assume its amount.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "NEEDS_CLARIFICATION"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-network-retry-20261030"
+      ],
+      "requires": []
+    }
+  ]
+}

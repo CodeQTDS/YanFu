@@ -1,0 +1,298 @@
+{
+  "version": 1,
+  "description": "Reusable contract-type templates for registered external contracts. Templates are inert until a contract instance references them from registered-contracts.json.",
+  "templates": [
+    {
+      "templateId": "access.grantRole",
+      "pack": "Administration Pack",
+      "contractType": "access-control",
+      "label": "Grant AccessControl Role",
+      "functionName": "grantRole",
+      "signature": "grantRole(bytes32,address)",
+      "abi": "function grantRole(bytes32 role,address account)",
+      "description": "Grant an AccessControl role on a registered contract.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "role",
+          "type": "bytes32",
+          "semantic": "access-role"
+        },
+        {
+          "name": "account",
+          "type": "address",
+          "semantic": "account"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 50,
+        "category": "access-control"
+      },
+      "analysisHints": [
+        "Access-control grants change authority. Identify the role, recipient account and resulting power explicitly."
+      ]
+    },
+    {
+      "templateId": "access.revokeRole",
+      "pack": "Administration Pack",
+      "contractType": "access-control",
+      "label": "Revoke AccessControl Role",
+      "functionName": "revokeRole",
+      "signature": "revokeRole(bytes32,address)",
+      "abi": "function revokeRole(bytes32 role,address account)",
+      "description": "Revoke an AccessControl role on a registered contract.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "role",
+          "type": "bytes32",
+          "semantic": "access-role"
+        },
+        {
+          "name": "account",
+          "type": "address",
+          "semantic": "account"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 45,
+        "category": "access-control"
+      },
+      "analysisHints": [
+        "Access-control revocation can remove operational capability. Identify whether a critical last-role holder is affected."
+      ]
+    },
+    {
+      "templateId": "administration.pause",
+      "pack": "Administration Pack",
+      "contractType": "pausable",
+      "label": "Pause Contract",
+      "functionName": "pause",
+      "signature": "pause()",
+      "abi": "function pause()",
+      "description": "Pause a registered Pausable-compatible contract.",
+      "payable": false,
+      "inputs": [],
+      "riskProfile": {
+        "flatWeight": 40,
+        "category": "emergency-control"
+      },
+      "analysisHints": [
+        "Pausing can halt user or protocol operations. Confirm the Timelock is authorized and identify operational impact."
+      ]
+    },
+    {
+      "templateId": "administration.unpause",
+      "pack": "Administration Pack",
+      "contractType": "pausable",
+      "label": "Unpause Contract",
+      "functionName": "unpause",
+      "signature": "unpause()",
+      "abi": "function unpause()",
+      "description": "Unpause a registered Pausable-compatible contract.",
+      "payable": false,
+      "inputs": [],
+      "riskProfile": {
+        "flatWeight": 30,
+        "category": "emergency-control"
+      },
+      "analysisHints": [
+        "Unpausing restores operations. Confirm the reason for resuming service and current authorization state."
+      ]
+    },
+    {
+      "templateId": "administration.transferOwnership",
+      "pack": "Administration Pack",
+      "contractType": "ownable",
+      "label": "Transfer Contract Ownership",
+      "functionName": "transferOwnership",
+      "signature": "transferOwnership(address)",
+      "abi": "function transferOwnership(address newOwner)",
+      "description": "Transfer ownership of a registered Ownable-compatible contract.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "semantic": "owner"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 55,
+        "category": "ownership"
+      },
+      "analysisHints": [
+        "Ownership transfer changes ultimate authority. Treat the destination owner as a high-sensitivity value."
+      ]
+    },
+    {
+      "templateId": "upgrade.uupsUpgradeToAndCall",
+      "pack": "Upgrade Pack",
+      "contractType": "uups-proxy",
+      "label": "UUPS Upgrade To And Call",
+      "functionName": "upgradeToAndCall",
+      "signature": "upgradeToAndCall(address,bytes)",
+      "abi": "function upgradeToAndCall(address newImplementation,bytes data)",
+      "description": "Upgrade a registered UUPS-compatible proxy and optionally execute initialization calldata.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "semantic": "implementation-address"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "semantic": "call-data",
+          "default": "0x"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 70,
+        "category": "contract-upgrade"
+      },
+      "analysisHints": [
+        "Contract upgrades can change all protocol logic. Verify implementation address, authorization, initialization calldata and simulation evidence."
+      ]
+    },
+    {
+      "templateId": "nft.erc721SafeTransferFrom",
+      "pack": "Treasury Pack",
+      "contractType": "erc721",
+      "label": "ERC721 Safe Transfer",
+      "functionName": "safeTransferFrom",
+      "signature": "safeTransferFrom(address,address,uint256)",
+      "abi": "function safeTransferFrom(address from,address to,uint256 tokenId)",
+      "description": "Transfer an ERC721 token on a registered NFT contract. The Timelock must own or be approved to transfer the token.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "from",
+          "type": "address",
+          "semantic": "owner"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "semantic": "recipient"
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "semantic": "token-id"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 30,
+        "category": "nft-transfer"
+      },
+      "analysisHints": [
+        "Verify ownership/approval, recipient and tokenId. If the NFT is held by Treasury rather than Timelock, a Treasury adapter is required."
+      ]
+    },
+    {
+      "templateId": "nft.erc1155SafeTransferFrom",
+      "pack": "Treasury Pack",
+      "contractType": "erc1155",
+      "label": "ERC1155 Safe Transfer",
+      "functionName": "safeTransferFrom",
+      "signature": "safeTransferFrom(address,address,uint256,uint256,bytes)",
+      "abi": "function safeTransferFrom(address from,address to,uint256 id,uint256 amount,bytes data)",
+      "description": "Transfer ERC1155 assets on a registered token contract. The Timelock must own or be approved to transfer the assets.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "from",
+          "type": "address",
+          "semantic": "owner"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "semantic": "recipient"
+        },
+        {
+          "name": "id",
+          "type": "uint256",
+          "semantic": "token-id"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "semantic": "integer"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "semantic": "call-data",
+          "default": "0x"
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 35,
+        "category": "nft-transfer"
+      },
+      "analysisHints": [
+        "Verify ownership/approval, recipient, token id and amount. Treasury-held ERC1155 assets need a Treasury adapter unless the Timelock is approved."
+      ]
+    },
+    {
+      "templateId": "token.mint",
+      "pack": "Administration Pack",
+      "contractType": "erc20-mintable",
+      "label": "Mint ERC20 Tokens",
+      "functionName": "mint",
+      "signature": "mint(address,uint256)",
+      "abi": "function mint(address to,uint256 amount)",
+      "description": "Mint tokens on a registered mintable ERC20 contract.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "to",
+          "type": "address",
+          "semantic": "recipient"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "semantic": "token-amount",
+          "decimals": 18
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 55,
+        "category": "token-supply"
+      },
+      "analysisHints": [
+        "Minting changes token supply. Verify mint authority, amount, recipient and token decimals configured for this capability."
+      ]
+    },
+    {
+      "templateId": "token.burn",
+      "pack": "Administration Pack",
+      "contractType": "erc20-burnable",
+      "label": "Burn ERC20 Tokens",
+      "functionName": "burn",
+      "signature": "burn(uint256)",
+      "abi": "function burn(uint256 amount)",
+      "description": "Burn the caller's tokens on a registered ERC20Burnable-compatible contract.",
+      "payable": false,
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "semantic": "token-amount",
+          "decimals": 18
+        }
+      ],
+      "riskProfile": {
+        "flatWeight": 45,
+        "category": "token-supply"
+      },
+      "analysisHints": [
+        "Burning changes token supply. Confirm which account's balance is burned under the target token's implementation."
+      ]
+    }
+  ]
+}

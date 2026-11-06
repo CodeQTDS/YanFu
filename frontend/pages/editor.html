@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Human Confirm & Submit · YanFu Governance Compiler v1.0</title>
+  <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">YF</div>
+      <div class="brand-text"><strong>YanFu Governance Compiler v1.0</strong><span>Human Confirm & Submit</span></div>
+    </div>
+    <nav id="appNav" class="nav"></nav>
+    <div class="sidebar-footer">Human Authority: explicitly enable rewriting in the Encoded Governor proposal panel. Apply changes, validate, acknowledge the risks, then sign.</div>
+  </aside>
+
+  <main class="main">
+    <header class="page-header">
+      <div>
+        <h1>Edit, validate &amp; confirm</h1>
+        <p>Review the exact Governor proposal. To change it, enable Human rewriting in the Encoded Governor proposal panel below. Every applied change requires new validation and confirmation.</p>
+      </div>
+      <div id="chainSummary" class="badge">Loading chain…</div>
+    </header>
+
+    <div id="workflowBar" class="workflow"></div>
+
+    <section class="card">
+      <h2>1 · Inspect the proposal</h2>
+      <p>The proposal is read-only unless you deliberately choose to change it. Editing invalidates previous approval.</p>
+      <div id="proposalSummary" class="status">The exact encoded proposal appears in the inspection panel below. A successful Governor submission only creates a voteable proposal; it does not transfer any Treasury assets. Check whether earlier proposals have actually executed before assuming funds are unavailable.</div>
+      <p class="muted small">To amend the proposal, use the <strong>Enable Human rewriting</strong> checkbox in the Encoded Governor proposal panel below. Nothing is editable until you opt in.</p>
+    </section>
+
+    <style>#humanRewritePanel[hidden],#guidedEditorPanel[hidden],#finalGovernorOverridePanel[hidden],#humanRewriteConfirmPanel[hidden],#pendingEditWarning[hidden]{display:none!important}</style>
+    <div class="grid" style="margin-top:20px">
+      <section class="card">
+        <h2>2 · Encoded Governor proposal</h2>
+        <p class="muted small">This is the exact executable proposal. View-only until you switch on Human rewriting.</p>
+        <pre id="encodedPreview" style="overflow:auto">No proposal loaded.</pre>
+        <label class="check-row" style="margin-top:15px">
+          <input id="humanRewriteSwitch" type="checkbox" aria-controls="humanRewritePanel" aria-expanded="false">
+          <span><strong>Enable Human rewriting</strong> — I want to change this Governor proposal.</span>
+        </label>
+        <div id="humanRewritePanel" hidden style="margin-top:14px;border:1px solid rgba(196,118,39,.65);padding:16px;border-radius:12px">
+          <div class="risk-statement"><strong>Human Authority — changes replace the AI-reviewed proposal</strong>
+            <p>Choose <strong>one</strong> method below. The description is shared. Saving applies a new proposal fingerprint, invalidates the old approval, and requires fresh validation. No transaction is sent when you save.</p>
+          </div>
+          <fieldset class="field" style="border:0;padding:0;margin:15px 0">
+            <legend><strong>How would you like to rewrite?</strong></legend>
+            <label class="check-row"><input type="radio" name="humanRewriteMethod" id="humanRewriteGuided" value="guided" checked> <span><strong>Adjust semantic actions</strong> (recommended): change readable parameters, then rebuild verified calldata.</span></label>
+            <label class="check-row"><input type="radio" name="humanRewriteMethod" id="humanRewriteExact" value="exact"> <span><strong>Edit exact Governor payload</strong> (expert only): directly replace targets, values and encoded calls.</span></label>
+          </fieldset>
+          <div class="field"><label for="descriptionInput">Proposal description (shared by either method)</label><textarea id="descriptionInput" style="min-height:100px"></textarea></div>
+          <div id="guidedEditorPanel">
+            <h3>Editable semantic actions</h3>
+            <div id="actionEditors"></div>
+            <div class="actions"><button type="button" id="rebuildBtn" class="btn primary">Apply semantic rewrite</button></div>
+            <details style="margin-top:15px"><summary>Developer option: edit semantic actions JSON</summary>
+              <p class="muted small">Useful for changing capability IDs or action counts. Still passes through deterministic validation and encoding.</p>
+              <textarea id="advancedActionsInput" style="min-height:180px;font-family:ui-monospace,monospace"></textarea>
+              <div class="actions"><button type="button" id="rebuildAdvancedBtn" class="btn">Apply semantic JSON rewrite</button></div>
+            </details>
+          </div>
+          <div id="finalGovernorOverridePanel" hidden>
+            <h3>Expert · exact Governor payload</h3>
+            <p class="muted small">You directly control the executable calls. The old semantic actions will be historical evidence only, not the authority for this payload.</p>
+            <div class="field"><label for="governorTargetsInput">targets[] · JSON array of contract addresses</label><textarea id="governorTargetsInput" style="min-height:100px;font-family:ui-monospace,monospace"></textarea></div>
+            <div class="field"><label for="governorValuesInput">values[] · JSON array of ETH values in wei</label><textarea id="governorValuesInput" style="min-height:90px;font-family:ui-monospace,monospace"></textarea></div>
+            <div class="field"><label for="governorCalldatasInput">calldatas[] · JSON array of encoded calls</label><textarea id="governorCalldatasInput" style="min-height:130px;font-family:ui-monospace,monospace"></textarea></div>
+            <div class="actions"><button type="button" id="applyGovernorOverrideBtn" class="btn danger">Apply exact Governor rewrite</button></div>
+          </div>
+          <div class="actions" style="margin-top:14px"><button type="button" id="cancelHumanRewriteBtn" class="btn">Discard unapplied changes and close editor</button></div>
+        </div>
+      </section>
+      <section class="card"><h2>Fresh validation</h2><p class="muted small">A human rewrite cannot be submitted until new validation succeeds for its exact fingerprint.</p><pre id="validationOutput">Not validated.</pre></section>
+    </div>
+
+    <section class="card" style="margin-top:20px">
+      <h2>3 · Validate the applied proposal</h2>
+      <p class="muted small">If you used Human rewriting, apply the changes first, then validate the new executable fingerprint. Unapplied edits block submission.</p>
+      <div class="actions"><button id="validateBtn" class="btn primary">Validate applied proposal</button><a class="btn" href="review.html">Open AI Review Team</a></div>
+      <div id="pendingEditWarning" class="status" hidden>Unsaved human rewrite: apply or discard your changes before validating or submitting.</div>
+      <div id="editorStatus" class="status">Run validation for the current proposal. If you rewrote it, also accept the human rewriting warning and the applicable AI-review risk gate before final confirmation.</div>
+    </section>
+
+    <section class="card" style="margin-top:20px">
+      <h2>4 · Review gate & final human confirmation</h2>
+
+      <div class="review-gate">
+        <div class="review-gate-status">
+          <h3>AI review lineage</h3>
+          <div id="reviewGateSummary"></div>
+          <div id="reviewGateReports"></div>
+        </div>
+
+        <div class="confirmation-box">
+          <h3>Human confirmation</h3>
+          <div id="humanRewriteConfirmPanel" class="human-risk-panel" hidden>
+            <h4>Human rewriting warning · confirmation 1 of 2</h4>
+            <p><strong>The proposal was modified by a human.</strong> The encoded targets/values/calldatas or semantic actions may differ from those reviewed by AI. Previous approval does not cover changes unless this new fingerprint was reviewed again. Inspect the applied payload and fresh validation before accepting responsibility.</p>
+            <label class="check-row"><input id="humanRewriteConfirmCheckbox" type="checkbox">
+              <span><strong>First confirmation:</strong> I recognize the human rewrite, have checked the modified executable proposal, and accept responsibility for those changes.</span>
+            </label>
+          </div>
+
+          <label class="check-row">
+            <input id="humanConfirmCheckbox" type="checkbox">
+            <span><strong>Final confirmation (2 of 2 after a rewrite):</strong> I have inspected the validated Governor payload and review/risk evidence, and I authorize submitting this exact proposal fingerprint to MetaMask.</span>
+          </label>
+
+          <div id="overridePanel" class="override-panel" hidden>
+            <h4>Override current AI review result</h4>
+            <div class="risk-statement">
+              <strong>Risk statement</strong>
+              <p id="reviewOverrideRiskStatement"></p>
+            </div>
+            <label class="check-row">
+              <input id="overrideReviewCheckbox" type="checkbox">
+              <span>I understand the AI review team reviewed this exact fingerprint but did not approve it, and I choose to continue.</span>
+            </label>
+            <div class="field">
+              <label>Optional human note</label>
+              <textarea id="overrideReason" style="min-height:90px" placeholder="Optional: explain why the human decision overrides the AI review result."></textarea>
+              <p class="muted small">The acknowledgement checkbox is the required bypass control. A written note is recommended for auditability but is not mandatory.</p>
+            </div>
+          </div>
+
+          <div id="humanEditRiskPanel" class="human-risk-panel" hidden>
+            <h4>Human Edit Risk Override</h4>
+
+            <div class="risk-statement">
+              <strong>Risk statement</strong>
+              <p id="humanEditRiskStatement"></p>
+            </div>
+
+            <label class="check-row">
+              <input id="humanEditRiskCheckbox" type="checkbox">
+              <span>I understand that the current edited fingerprint has not been re-reviewed by the AI reviewer panel, and I explicitly choose to proceed based on my own review.</span>
+            </label>
+
+            <div class="field">
+              <label>Optional human note</label>
+              <textarea id="humanEditRiskReason" style="min-height:100px" placeholder="Optional: explain why you are submitting the human-edited proposal without another AI review."></textarea>
+            </div>
+
+            <p class="muted small">This override is available because an earlier fingerprint was AI-reviewed. Fresh deterministic validation of the current fingerprint is still mandatory, but AI re-review is not.</p>
+          </div>
+
+          <div id="submitGateStatus" class="status">Submission gate not complete.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:20px">
+      <h2>Wallet submission</h2>
+      <p>Successful Governor.propose creates a proposal; it does NOT transfer tokens or guarantee eventual execution. Current-state balance checks can become obsolete while voting. Submission is never automatic. The browser wallet must be connected to the configured chain and explicitly sign <code>Governor.propose(...)</code>.</p>
+
+      <div class="actions">
+        <button id="connectBtn" class="btn">Connect wallet</button>
+        <button id="submitBtn" class="btn success" disabled>Submit exact proposal to Governor</button>
+      </div>
+
+      <div id="walletStatus" class="status">Wallet not connected.</div>
+      <pre id="submissionOutput">No on-chain submission yet.</pre>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/state.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/wallet.js"></script>
+<script src="../assets/js/editor.js"></script>
+</body>
+</html>

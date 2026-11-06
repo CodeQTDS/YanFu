@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "description": "Examples only. Copy selected entries into registered-contracts.json, set real addresses/ABIs, and enable them deliberately.",
+  "contracts": [
+    {
+      "id": "exampleProtocolController",
+      "label": "Example Protocol Controller",
+      "enabled": false,
+      "address": "0x1111111111111111111111111111111111111111",
+      "aliases": ["protocol controller"],
+      "capabilities": [
+        {"id": "protocol.pause", "templateId": "administration.pause"},
+        {"id": "protocol.unpause", "templateId": "administration.unpause"},
+        {"id": "protocol.transferOwnership", "templateId": "administration.transferOwnership"},
+        {"id": "protocol.upgrade", "templateId": "upgrade.uupsUpgradeToAndCall"}
+      ]
+    },
+    {
+      "id": "exampleDexRouter",
+      "label": "Example DEX Router",
+      "enabled": false,
+      "address": "0x2222222222222222222222222222222222222222",
+      "aliases": ["DEX router"],
+      "capabilities": [
+        {
+          "id": "defi.swapExactTokensForTokens",
+          "pack": "DeFi Pack",
+          "contractType": "dex-router",
+          "label": "Swap Exact Tokens For Tokens",
+          "functionName": "swapExactTokensForTokens",
+          "signature": "swapExactTokensForTokens(uint256,uint256,address[],address,uint256)",
+          "abi": "function swapExactTokensForTokens(uint256 amountIn,uint256 amountOutMin,address[] path,address to,uint256 deadline) returns(uint256[] amounts)",
+          "description": "Protocol-specific DEX swap example. Confirm the exact ABI matches the deployed router before enabling.",
+          "payable": false,
+          "inputs": [
+            {"name": "amountIn", "type": "uint256", "semantic": "token-base-units"},
+            {"name": "amountOutMin", "type": "uint256", "semantic": "token-base-units"},
+            {"name": "path", "type": "address[]", "semantic": "address-list"},
+            {"name": "to", "type": "address", "semantic": "recipient"},
+            {"name": "deadline", "type": "uint256", "semantic": "timestamp"}
+          ],
+          "riskProfile": {"flatWeight": 55, "category": "defi-swap"},
+          "analysisHints": ["Check slippage protection, route, recipient, deadline, allowance requirements and protocol-specific execution semantics."]
+        }
+      ]
+    }
+  ]
+}

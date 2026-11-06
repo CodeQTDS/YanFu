@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analyze · YanFu Governance Compiler v1.0</title>
+  <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar"><div class="brand"><div class="brand-mark">YF</div><div class="brand-text"><strong>YanFu Governance Compiler v1.0</strong><span>Analyze</span></div></div><nav id="appNav" class="nav"></nav><div class="sidebar-footer">Analysis uses a fresh chain snapshot and Timelock-origin eth_call preflight.</div></aside>
+  <main class="main">
+    <header class="page-header"><div><h1>Analyze proposal</h1><p>Choose an analysis model independently of generation. The system refreshes chain state, simulates each call, calculates deterministic risk components and asks the model for semantic risk interpretation.</p></div><div id="chainSummary" class="badge">Loading chain…</div></header>
+    <div id="workflowBar" class="workflow"></div>
+    <div class="grid two">
+      <section class="card"><div class="field"><label>Analysis model</label><select id="modelSelect"></select></div><div class="actions"><button id="analyzeBtn" class="btn primary">Run analysis</button><span id="riskBadge"></span></div><div id="analysisStatus" class="status">Ready.</div><h3>Proposal input</h3><pre id="proposalPreview">No proposal loaded.</pre></section>
+      <section class="card"><h2>Analysis result</h2><pre id="analysisOutput">No analysis yet.</pre><div class="actions" style="margin-top:14px"><a id="continueReviewBtn" class="btn" href="review.html">Continue to AI Review Panel</a></div><p class="muted small" style="margin-top:12px">Human Confirm remains locked until the AI Review Panel has completed at least one review of the current proposal.</p></section>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/api.js"></script><script src="../assets/js/state.js"></script><script src="../assets/js/nav.js"></script><script src="../assets/js/models.js"></script><script src="../assets/js/ui.js"></script><script src="../assets/js/analyze.js"></script>
+</body>
+</html>

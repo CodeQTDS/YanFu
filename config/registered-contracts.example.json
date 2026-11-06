@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "description": "External contract instances and protocol-specific capabilities. Empty by default. Add enabled contracts here to expose Pausable, Ownable, AccessControl, UUPS, NFT or exact protocol-specific DeFi functions to the compiler without changing backend code.",
+  "contracts": []
+}

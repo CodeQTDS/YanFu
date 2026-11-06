@@ -1,0 +1,3 @@
+# Preserve Solidity source bytes (including compiler metadata inputs).
+# Existing CRLF is intentional and is not trailing whitespace.
+*.sol -text whitespace=cr-at-eol

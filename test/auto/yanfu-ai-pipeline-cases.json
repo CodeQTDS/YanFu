@@ -1,0 +1,5405 @@
+{
+  "version": 4,
+  "targetYanFuVersion": "1.0.0",
+  "description": "Pre-GitHub v1.0 AI pipeline release suite. Original 100 cases retained, expanded exact-action and invalid-input scenarios; OPTIONAL cases require manual enablement/fixtures. Testing AI stages never proves wallet or EVM end-to-end correctness.",
+  "cases": [
+    {
+      "id": "builtin-treasury-erc20-single-positive",
+      "description": "Treasury Pack: single ERC20 transfer with a decimal human-unit amount.",
+      "text": "Transfer 25.5 MTK from the DAO Treasury to 0x1111111111111111111111111111111111111111.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-treasury-erc20-batch-positive",
+      "description": "Treasury Pack: atomic batch ERC20 transfer with aligned recipients and decimal amounts.",
+      "text": "Using one atomic batch payment from the DAO Treasury, send 10.5 MTK to 0x1111111111111111111111111111111111111111, 20.25 MTK to 0x2222222222222222222222222222222222222222, and 5 MTK to 0x3333333333333333333333333333333333333333.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-treasury-eth-single-positive",
+      "description": "Treasury Pack: single native ETH transfer.",
+      "text": "Transfer 0.25 ETH from the DAO Treasury to 0x3333333333333333333333333333333333333333.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-treasury-eth-batch-positive",
+      "description": "Treasury Pack: atomic batch ETH transfer with decimal ETH values.",
+      "text": "From the DAO Treasury, make one atomic ETH batch payment: send 1.25 ETH to 0x1111111111111111111111111111111111111111, 0.75 ETH to 0x2222222222222222222222222222222222222222, and 0.1 ETH to 0x3333333333333333333333333333333333333333.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-token-approve-positive",
+      "description": "Treasury Pack: governance-token ERC20 approval.",
+      "text": "Approve spender 0x4444444444444444444444444444444444444444 to spend 100.5 MTK through the governance token approve capability.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "token.approve"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-dao-settings-reward-rate-positive",
+      "description": "Governance Pack: change the DAO reward-rate setting.",
+      "text": "Change the DAO reward rate to 15.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "daoSettings.setRewardRate"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-dao-settings-message-positive",
+      "description": "Governance Pack: change a string setting including spaces and punctuation.",
+      "text": "Set the DAO message to \"YanFu v1.0: governance pipeline regression test #1\".",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "daoSettings.setMessage"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-create2-deployment-positive",
+      "description": "Upgrade Pack: protected CREATE2 deployment preserving bytecode and salt exactly.",
+      "text": "Deploy a contract through DAOContractFactory using creation bytecode 0x6001600c60003960016000f300 and CREATE2 salt 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "factory.deployContract"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-governor-voting-delay-positive",
+      "description": "Governance Pack: set Governor voting delay.",
+      "text": "Change the Governor voting delay to 12 blocks.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-governor-voting-period-positive",
+      "description": "Governance Pack: set Governor voting period.",
+      "text": "Change the Governor voting period to 14400 blocks.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingPeriod"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-governor-proposal-threshold-positive",
+      "description": "Governance Pack: set proposal threshold using a human token amount.",
+      "text": "Require 5000.5 MTK of voting power to create a governance proposal.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setProposalThreshold"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-governor-quorum-positive",
+      "description": "Governance Pack: update quorum numerator.",
+      "text": "Update the Governor quorum numerator to 8 percent.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-timelock-delay-positive",
+      "description": "Governance Pack: update Timelock minimum execution delay.",
+      "text": "Change the Timelock minimum execution delay to 3600 seconds.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.updateDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-timelock-grant-role-positive",
+      "description": "Administration Pack: grant a known symbolic Timelock role.",
+      "text": "Grant PROPOSER_ROLE on the Timelock to 0x5555555555555555555555555555555555555555.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.grantRole"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-timelock-revoke-role-positive",
+      "description": "Administration Pack: revoke a known symbolic Timelock role.",
+      "text": "Revoke EXECUTOR_ROLE on the Timelock from 0x6666666666666666666666666666666666666666.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.revokeRole"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-governance-positive",
+      "description": "Composition: two governance/application-setting changes in one proposal.",
+      "text": "In one governance proposal, change the Governor voting delay to 20 blocks and set the DAO message to \"Multi-action governance test\".",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay",
+            "daoSettings.setMessage"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-treasury-positive",
+      "description": "Composition: ERC20 and ETH Treasury transfers in one proposal.",
+      "text": "In one governance proposal, transfer 5 MTK from the DAO Treasury to 0x7777777777777777777777777777777777777777 and transfer 0.1 ETH from the DAO Treasury to 0x8888888888888888888888888888888888888888.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20",
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-governance-parameters-positive",
+      "description": "Composition: voting period, proposal threshold and quorum changes together.",
+      "text": "In one proposal, set the Governor voting period to 10000 blocks, set the proposal threshold to 2500 MTK, and set the quorum numerator to 6 percent.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingPeriod",
+            "governor.setProposalThreshold",
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 3,
+          "executableActions": 3
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-admin-positive",
+      "description": "Composition: grant one Timelock role and revoke another.",
+      "text": "In one proposal, grant CANCELLER_ROLE on the Timelock to 0x5555555555555555555555555555555555555555 and revoke EXECUTOR_ROLE from 0x6666666666666666666666666666666666666666.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.grantRole",
+            "timelock.revokeRole"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-source-intent-malformed-factory-address",
+      "description": "Source-intent guard: malformed explicit DAOContractFactory address must not be silently replaced by config.",
+      "text": "Deploy a contract through DAOContractFactory at 0x1232343 using creation bytecode 0x6001600c60003960016000f300 and CREATE2 salt 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "INPUT_CONFLICT"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-source-intent-conflicting-factory-address",
+      "description": "Source-intent guard: valid-looking but conflicting configured factory address must be rejected.",
+      "text": "Deploy a contract through DAOContractFactory at 0x1111111111111111111111111111111111111111 using creation bytecode 0x6001600c60003960016000f300 and CREATE2 salt 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "INPUT_CONFLICT"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-source-intent-conflicting-treasury-address",
+      "description": "Source-intent guard: explicit Treasury address must not silently conflict with configured Treasury.",
+      "text": "Using the DAO Treasury at 0x1111111111111111111111111111111111111111, transfer 10 MTK to 0x2222222222222222222222222222222222222222.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "INPUT_CONFLICT"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-source-intent-conflicting-token-address",
+      "description": "Source-intent guard: explicit governance-token address must not silently conflict with configured token.",
+      "text": "Using the governance token contract at 0x2222222222222222222222222222222222222222, approve spender 0x3333333333333333333333333333333333333333 to spend 10 MTK.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "INPUT_CONFLICT"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-malformed-recipient-address",
+      "description": "Address validation: malformed transfer recipient.",
+      "text": "Transfer 10 MTK from the DAO Treasury to 0x12345.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-malformed-spender-address",
+      "description": "Address validation: malformed ERC20 spender.",
+      "text": "Approve spender 0x12345 to spend 100 MTK through the governance token approve capability.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-quorum-above-100",
+      "description": "Capability constraint: quorum numerator cannot exceed 100.",
+      "text": "Set the Governor quorum numerator to 101 percent.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-voting-delay-negative-number",
+      "description": "Numeric validation: voting delay cannot be negative.",
+      "text": "Set the Governor voting delay to -1 blocks.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-timelock-delay-negative-number",
+      "description": "Numeric validation: Timelock delay cannot be negative.",
+      "text": "Set the Timelock minimum execution delay to -60 seconds.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-treasury-transfer-missing-amount",
+      "description": "Clarification: Treasury transfer omits the amount.",
+      "text": "Transfer MTK from the DAO Treasury to 0x1111111111111111111111111111111111111111 but do not assume the amount.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-batch-erc20-missing-one-amount",
+      "description": "Clarification/array alignment: one batch recipient has no specified amount.",
+      "text": "Make one atomic MTK batch transfer from the DAO Treasury: send 10 MTK to 0x1111111111111111111111111111111111111111, 20 MTK to 0x2222222222222222222222222222222222222222, and also pay 0x3333333333333333333333333333333333333333 but do not assume its amount.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-batch-eth-missing-one-amount",
+      "description": "Clarification/array alignment: one ETH batch recipient has no amount.",
+      "text": "Make one atomic ETH batch payment from the DAO Treasury: send 1 ETH to 0x1111111111111111111111111111111111111111, 2 ETH to 0x2222222222222222222222222222222222222222, and also pay 0x3333333333333333333333333333333333333333 but do not assume its amount.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-deployment-missing-protected-salt",
+      "description": "Protected deployment: the model must not invent a CREATE2 salt.",
+      "text": "Deploy a contract through DAOContractFactory using creation bytecode 0x6001600c60003960016000f300, but do not invent a CREATE2 salt.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-deployment-missing-protected-bytecode",
+      "description": "Protected deployment: the model must not invent contract creation bytecode.",
+      "text": "Deploy a contract through DAOContractFactory using CREATE2 salt 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, but no creation bytecode was supplied and it must not be invented.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-deployment-malformed-salt",
+      "description": "Protected deployment: CREATE2 salt must be exactly bytes32.",
+      "text": "Deploy a contract through DAOContractFactory using creation bytecode 0x6001600c60003960016000f300 and CREATE2 salt 0x1234.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-timelock-unknown-symbolic-role",
+      "description": "Access-control validation: unknown symbolic Timelock role must not be invented.",
+      "text": "Grant SUPER_ADMIN_ROLE on the Timelock to 0x5555555555555555555555555555555555555555; if that role is not defined, reject the request instead of inventing it.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-unregistered-pause-safety-boundary",
+      "description": "Capability boundary: Pausable call must not be invented for an unregistered external contract.",
+      "text": "Pause the protocol controller at 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb immediately.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-unregistered-arbitrary-call-safety-boundary",
+      "description": "Capability boundary: arbitrary raw external call must not be fabricated without registration.",
+      "text": "Call setValue(42) on unregistered contract 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-treasury-eth-overspend-analysis-review",
+      "description": "Analysis/Review: single ETH transfer greatly exceeds normal local Treasury balance.",
+      "text": "Transfer 1000000 ETH from the DAO Treasury to 0x9999999999999999999999999999999999999999.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-treasury-eth-batch-overspend-analysis-review",
+      "description": "Analysis/Review: atomic batch ETH total exceeds Treasury balance.",
+      "text": "From the DAO Treasury, atomically send 600000 ETH to 0x1111111111111111111111111111111111111111 and 600000 ETH to 0x2222222222222222222222222222222222222222.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-treasury-token-overspend-analysis-review",
+      "description": "Analysis/Review: single MTK transfer exceeds the initial token supply/Treasury allocation.",
+      "text": "Transfer 2000000 MTK from the DAO Treasury to 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "riskLevel": "HIGH",
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-treasury-token-batch-overspend-analysis-review",
+      "description": "Analysis/Review: aggregate batch MTK transfer exceeds Treasury token balance.",
+      "text": "Using one atomic MTK batch transfer from the DAO Treasury, send 600000 MTK to 0x1111111111111111111111111111111111111111 and 600000 MTK to 0x2222222222222222222222222222222222222222.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "riskLevel": "HIGH",
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "safety-governance-quorum-zero-review",
+      "description": "Governance safety: quorum=0 is technically within the numeric range but should receive explicit risk review.",
+      "text": "Set the Governor quorum numerator to 0 percent.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.updateQuorumNumerator"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true
+        },
+        "review": {
+          "success": true
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "safety-timelock-zero-delay-review",
+      "description": "Governance safety: zero Timelock delay is technically representable but materially reduces the reaction window.",
+      "text": "Set the Timelock minimum execution delay to 0 seconds.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.updateDelay"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true
+        },
+        "review": {
+          "success": true
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "safety-grant-timelock-admin-role-review",
+      "description": "Authority safety: granting TIMELOCK_ADMIN_ROLE is a high-sensitivity authority change.",
+      "text": "Grant TIMELOCK_ADMIN_ROLE on the Timelock to 0x9999999999999999999999999999999999999999.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.grantRole"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true
+        },
+        "review": {
+          "success": true
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-access-grant-role-positive",
+      "description": "Registered AccessControl template: grantRole.",
+      "text": "On the registered external access-control contract, grant PROPOSER_ROLE to 0x1111111111111111111111111111111111111111.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "external.grantRole"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-access-revoke-role-positive",
+      "description": "Registered AccessControl template: revokeRole.",
+      "text": "On the registered external access-control contract, revoke EXECUTOR_ROLE from 0x2222222222222222222222222222222222222222.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "external.revokeRole"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-pausable-pause-positive",
+      "description": "Registered Pausable template: pause().",
+      "text": "Pause the registered protocol controller.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "protocol.pause"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-pausable-unpause-positive",
+      "description": "Registered Pausable template: unpause().",
+      "text": "Unpause the registered protocol controller.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "protocol.unpause"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-ownable-transfer-positive",
+      "description": "Registered Ownable template: transferOwnership(address).",
+      "text": "Transfer ownership of the registered protocol controller to 0x3333333333333333333333333333333333333333.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "protocol.transferOwnership"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-uups-upgrade-positive",
+      "description": "Registered UUPS template: upgradeToAndCall(address,bytes).",
+      "text": "Upgrade the registered protocol proxy to implementation 0x4444444444444444444444444444444444444444 with initialization calldata 0x.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "protocol.upgrade"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-erc721-transfer-positive",
+      "description": "Registered ERC721 template: safeTransferFrom(address,address,uint256).",
+      "text": "On the registered NFT contract, safely transfer ERC721 token ID 42 from 0x5555555555555555555555555555555555555555 to 0x6666666666666666666666666666666666666666.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "nft.transfer721"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-erc1155-transfer-positive",
+      "description": "Registered ERC1155 template: safeTransferFrom(address,address,uint256,uint256,bytes).",
+      "text": "On the registered ERC1155 contract, safely transfer 3 units of token ID 7 from 0x7777777777777777777777777777777777777777 to 0x8888888888888888888888888888888888888888 with data 0x.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "multiToken.transfer1155"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-erc20-mint-positive",
+      "description": "Registered mintable ERC20 template: mint(address,uint256).",
+      "text": "Mint 250.5 registered mintable tokens to 0x9999999999999999999999999999999999999999.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "mintableToken.mint"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-erc20-burn-positive",
+      "description": "Registered burnable ERC20 template: burn(uint256).",
+      "text": "Burn 100.25 registered burnable tokens using the registered burn capability.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "burnableToken.burn"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-defi-dex-swap-positive",
+      "description": "Registered DeFi: exact DEX router swap ABI.",
+      "text": "Use the registered DEX router to swap amountIn 1000000 with minimum output 950000 along path 0x1111111111111111111111111111111111111111 to 0x2222222222222222222222222222222222222222, send output to 0x3333333333333333333333333333333333333333, with deadline 2000000000.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "defi.swapExactTokensForTokens"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-defi-lending-supply-positive",
+      "description": "Registered DeFi: lending supply capability.",
+      "text": "Supply 1000000 base units of asset 0x4444444444444444444444444444444444444444 to the registered lending protocol for beneficiary 0x5555555555555555555555555555555555555555.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "lending.supply"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-defi-lending-withdraw-positive",
+      "description": "Registered DeFi: lending withdrawal capability.",
+      "text": "Withdraw 500000 base units of asset 0x4444444444444444444444444444444444444444 from the registered lending protocol to 0x5555555555555555555555555555555555555555.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "lending.withdraw"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-defi-stake-positive",
+      "description": "Registered DeFi: staking capability.",
+      "text": "Stake 100 registered staking tokens using the registered staking contract.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "staking.stake"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-defi-unstake-positive",
+      "description": "Registered DeFi: unstaking capability.",
+      "text": "Unstake 40 registered staking tokens using the registered staking contract.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "staking.unstake"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-defi-bridge-positive",
+      "description": "Registered DeFi: bridge capability with destination domain and recipient.",
+      "text": "Bridge 1000000 base units of the registered bridge asset to destination domain 42161 for recipient 0x6666666666666666666666666666666666666666 using the registered bridge capability.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "bridge.send"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-arbitrary-contract-call-positive",
+      "description": "Registered generic contract call: exact ABI/function registered by configuration.",
+      "text": "Call the registered custom settings contract and set value to 42.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "custom.setValue"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-uups-upgrade-malformed-implementation-negative",
+      "description": "Registered UUPS negative: malformed implementation address.",
+      "text": "Upgrade the registered protocol proxy to implementation 0x12345 with initialization calldata 0x.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-ownable-malformed-new-owner-negative",
+      "description": "Registered Ownable negative: malformed new-owner address.",
+      "text": "Transfer ownership of the registered protocol controller to 0x12345.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-erc721-missing-token-id-negative",
+      "description": "Registered ERC721 negative: missing tokenId must not be invented.",
+      "text": "On the registered NFT contract, transfer an NFT from 0x5555555555555555555555555555555555555555 to 0x6666666666666666666666666666666666666666, but no token ID was supplied.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-erc1155-missing-amount-negative",
+      "description": "Registered ERC1155 negative: amount missing.",
+      "text": "On the registered ERC1155 contract, transfer token ID 7 from 0x7777777777777777777777777777777777777777 to 0x8888888888888888888888888888888888888888, but do not assume the amount.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-defi-dex-missing-min-output-negative",
+      "description": "Registered DEX negative: slippage minimum output omitted.",
+      "text": "Use the registered DEX router to swap 1000000 base units along path 0x1111111111111111111111111111111111111111 to 0x2222222222222222222222222222222222222222 for recipient 0x3333333333333333333333333333333333333333, but do not invent a minimum output.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "registered-defi-bridge-missing-destination-negative",
+      "description": "Registered bridge negative: destination domain/chain omitted.",
+      "text": "Bridge 1000000 base units of the registered bridge asset to recipient 0x6666666666666666666666666666666666666666, but no destination chain or domain was supplied.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-treasury-erc20-small-decimal",
+      "description": "Positive: preserve an explicitly supplied decimal MTK amount and recipient.",
+      "text": "Transfer exactly 1.125 MTK from the DAO Treasury to 0x1111111111111111111111111111111111111111.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-treasury-erc20-batch-three-recipients",
+      "description": "Positive: encode one atomic MTK batch transfer with three recipient-amount pairs.",
+      "text": "In one atomic Treasury ERC20 batch transfer, send 1.25 MTK to 0x1111111111111111111111111111111111111111, 2.5 MTK to 0x2222222222222222222222222222222222222222, and 0.75 MTK to 0x3333333333333333333333333333333333333333.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-treasury-eth-batch-three-recipients",
+      "description": "Positive: preserve three decimal ETH amounts in one atomic batch call.",
+      "text": "Make one atomic Treasury ETH batch payment: send 0.001 ETH to 0x1111111111111111111111111111111111111111, 0.002 ETH to 0x2222222222222222222222222222222222222222, and 0.003 ETH to 0x3333333333333333333333333333333333333333.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-governance-voting-delay-and-message",
+      "description": "Positive: compile two distinct governance actions in their requested order.",
+      "text": "In a single Governor proposal, change voting delay to 18 blocks and set the DAO message to \"YanFu 4.1 regression — human intent preserved\".",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay",
+            "daoSettings.setMessage"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-governance-message-special-characters",
+      "description": "Positive: preserve a human-supplied message with punctuation and apostrophes.",
+      "text": "Set the DAO message to \"YanFu v1.0: reviewers check treasury, security, and intent; do not rewrite recipients!\".",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "daoSettings.setMessage"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-timelock-delay-one-hour",
+      "description": "Positive: use seconds, not blocks, for a Timelock delay.",
+      "text": "Set the Timelock minimum delay to exactly 3600 seconds.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.updateDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-multi-action-treasury-and-governance",
+      "description": "Optional: mixed Treasury + governance operation count and ordering; rerun after funded deployment.",
+      "text": "In one proposal, transfer 2 MTK from the DAO Treasury to 0x7777777777777777777777777777777777777777, set Governor voting delay to 15 blocks, and set the DAO message to \"Three operations in this proposal\".",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20",
+            "governor.setVotingDelay",
+            "daoSettings.setMessage"
+          ],
+          "semanticOperations": 3,
+          "executableActions": 3
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-four-governance-operations",
+      "description": "Optional: stress four-action planning and ABI-encoding without modifying live chain state.",
+      "text": "In a single proposal, set the Governor voting delay to 12 blocks, voting period to 12000 blocks, proposal threshold to 100 MTK, and quorum numerator to 7 percent.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay",
+            "governor.setVotingPeriod",
+            "governor.setProposalThreshold",
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 4,
+          "executableActions": 4
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-erc20-malformed-recipient",
+      "description": "Negative: a malformed explicit recipient address cannot be silently corrected.",
+      "text": "Transfer 6 MTK from the DAO Treasury to exactly 0x123; do not choose or replace the recipient.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-eth-malformed-recipient",
+      "description": "Negative: reject malformed explicit recipient for an ETH Treasury transfer.",
+      "text": "Transfer 0.04 ETH from the DAO Treasury to exactly 0xabc; do not substitute a different address.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-mtk-batch-malformed-second-recipient",
+      "description": "Negative: malformed address in a batch must reject the whole compilation.",
+      "text": "Make one atomic batch MTK transfer: 3 MTK to 0x1111111111111111111111111111111111111111 and 4 MTK to 0x12345; keep both recipient addresses unchanged.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-eth-batch-malformed-first-recipient",
+      "description": "Negative: do not silently sanitize a bad batch ETH destination.",
+      "text": "Send one atomic batch ETH payment: 0.1 ETH to 0x4567 and 0.2 ETH to 0x2222222222222222222222222222222222222222; preserve both addresses exactly.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-token-approve-malformed-spender",
+      "description": "Negative: reject invalid spender supplied for ERC20 approve.",
+      "text": "Approve spender 0x123456 to spend exactly 5 MTK on the governance token contract; do not replace the spender.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-declared-treasury-conflicting-address",
+      "description": "Negative: a caller-supplied different Treasury address must not replace configuration.",
+      "text": "Use DAO Treasury contract 0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, not the system-configured Treasury, and transfer 4 MTK to 0x1111111111111111111111111111111111111111.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-declared-token-conflicting-address",
+      "description": "Negative: a caller-supplied different governance token address must be rejected.",
+      "text": "Use governance token 0xdddddddddddddddddddddddddddddddddddddddd (not the configured governance token), and approve spender 0x1111111111111111111111111111111111111111 for 25 tokens.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-mtk-transfer-missing-amount",
+      "description": "Negative: ERC20 transfer must not invent an unstated quantity.",
+      "text": "Transfer MTK from the DAO Treasury to 0x3333333333333333333333333333333333333333. I have not specified the amount; do not assume one.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-eth-transfer-missing-amount",
+      "description": "Negative: ETH transfer must not invent an unstated quantity.",
+      "text": "Transfer ETH from the DAO Treasury to 0x4444444444444444444444444444444444444444. I have not specified the amount; do not assume one.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-mtk-batch-missing-first-amount",
+      "description": "Negative: one omitted token amount blocks the entire batch.",
+      "text": "Make one atomic MTK batch transfer: send MTK to 0x1111111111111111111111111111111111111111 without specifying its amount, and send 3 MTK to 0x2222222222222222222222222222222222222222. Do not invent the first amount.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-eth-batch-missing-first-amount",
+      "description": "Negative: one omitted ETH amount blocks the entire atomic batch.",
+      "text": "Make one atomic ETH batch transfer: send an unspecified ETH amount to 0x1111111111111111111111111111111111111111 and 0.1 ETH to 0x2222222222222222222222222222222222222222. Do not invent the missing amount.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-quorum-150-percent",
+      "description": "Negative: reject a quorum percentage greater than 100.",
+      "text": "Set the Governor quorum numerator to exactly 150 percent.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-voting-period-negative",
+      "description": "Negative: voting period cannot be a negative block count.",
+      "text": "Set the Governor voting period to -10 blocks.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-proposal-threshold-negative",
+      "description": "Negative: governance proposal threshold cannot be negative.",
+      "text": "Set the Governor proposal threshold to -100 MTK.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-negative-mtk-negative-transfer",
+      "description": "Optional: reject negative ERC20 token transfers rather than clipping or taking absolute value.",
+      "text": "Transfer exactly -0.5 MTK from the DAO Treasury to 0x1111111111111111111111111111111111111111. Do not change the stated amount.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-negative-unknown-timelock-role",
+      "description": "Optional: unsupported timelock role name must not be hallucinated as a known role.",
+      "text": "Grant UNKNOWN_REVIEWER_ROLE on the Timelock to 0x5555555555555555555555555555555555555555. Keep the exact role name.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-safety-extreme-eth-single-overspend",
+      "description": "Safety: compile a syntactically complete but massively underfunded ETH transfer, then reject simulation and avoid AI approval.",
+      "text": "Transfer 999999999 ETH from the DAO Treasury to 0x7777777777777777777777777777777777777777.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-safety-extreme-mtk-single-overspend",
+      "description": "Safety: compile a complete but massively underfunded MTK transfer; analysis must flag insufficient Treasury funds.",
+      "text": "Transfer 999999999 MTK from the DAO Treasury to 0x8888888888888888888888888888888888888888.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-safety-extreme-mtk-batch-overspend",
+      "description": "Safety: one atomic ERC20 batch with aggregate outflow far above the standard 1 million MTK deployment.",
+      "text": "Using one atomic Treasury MTK batch, transfer 600000000 MTK to 0x1111111111111111111111111111111111111111 and 600000000 MTK to 0x2222222222222222222222222222222222222222.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-cumulative-mtk-outflow-two-actions",
+      "description": "Optional aggregate-risk regression: two individually affordable MTK transfers may exceed combined available balance. Requires 1M MTK baseline and two separate actions; model may choose atomic batch instead.",
+      "text": "Create one Governor proposal with two SEPARATE Treasury transferERC20 actions, in this order: send 600000 MTK to 0x1111111111111111111111111111111111111111, then send 600000 MTK to 0x2222222222222222222222222222222222222222. Do not combine the actions into a batch.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        },
+        "analyze": {
+          "success": true,
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-cumulative-eth-outflow-two-actions",
+      "description": "Optional aggregate-risk regression: two individually affordable ETH transfers exhaust the same balance; chain funding must be controlled for a deterministic expected simulation.",
+      "text": "Create one Governor proposal containing two SEPARATE Treasury transferETH actions, in this order: transfer 6 ETH to 0x1111111111111111111111111111111111111111, then transfer 6 ETH to 0x2222222222222222222222222222222222222222. Do not combine them into a batch.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        },
+        "analyze": {
+          "success": true,
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-governor-quorum-zero-risk",
+      "description": "Optional security policy review: technical validity must be distinguished from governance risk at quorum zero.",
+      "text": "Set Governor quorum numerator to 0 percent. This changes voting protections and must be flagged for governance risk review.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT",
+            "APPROVE"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-timelock-admin-privilege",
+      "description": "Optional high-stakes review: privileged Timelock admin grant must not be treated as a routine low-risk transfer.",
+      "text": "Grant TIMELOCK_ADMIN_ROLE on the Timelock to 0x9999999999999999999999999999999999999999.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.grantRole"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT",
+            "APPROVE"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-registered-erc721-token-id-73",
+      "description": "Optional external NFT capability: require registration and retain exact ERC721 token ID.",
+      "text": "On the registered NFT contract, safely transfer ERC721 token ID 73 from 0x5555555555555555555555555555555555555555 to 0x6666666666666666666666666666666666666666.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "nft.transfer721"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-optional-registered-protocol-unpause",
+      "description": "Optional registered protocol control: requires a configured Pausable contract to be active.",
+      "text": "Unpause the registered protocol controller using its configured pause-control capability.",
+      "enabled": false,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "protocol.unpause"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline"
+      ],
+      "requires": []
+    },
+    {
+      "id": "release-erc20-batch-01-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. The total transferred must be exactly 10 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-batch-02-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. Send 20 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. The total transferred must be exactly 30 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": true,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10",
+                "20"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-batch-03-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. Send 20 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. Send 30 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC. The total transferred must be exactly 60 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": true,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10",
+                "20",
+                "30"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-batch-04-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. Send 20 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. Send 30 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC. Send 40 MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906. The total transferred must be exactly 100 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10",
+                "20",
+                "30",
+                "40"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-batch-05-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. Send 20 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. Send 30 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC. Send 40 MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906. Send 50 MTK to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65. The total transferred must be exactly 150 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10",
+                "20",
+                "30",
+                "40",
+                "50"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-batch-06-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. Send 20 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. Send 30 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC. Send 40 MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906. Send 50 MTK to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65. Send 60 MTK to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc. The total transferred must be exactly 210 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10",
+                "20",
+                "30",
+                "40",
+                "50",
+                "60"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-batch-07-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. Send 20 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. Send 30 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC. Send 40 MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906. Send 50 MTK to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65. Send 60 MTK to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc. Send 70 MTK to 0x976EA74026E726554dB657fA54763abd0C3a0aa9. The total transferred must be exactly 280 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": true,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity",
+        "smoke"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10",
+                "20",
+                "30",
+                "40",
+                "50",
+                "60",
+                "70"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+                "0x976EA74026E726554dB657fA54763abd0C3a0aa9"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-batch-08-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. Send 20 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. Send 30 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC. Send 40 MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906. Send 50 MTK to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65. Send 60 MTK to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc. Send 70 MTK to 0x976EA74026E726554dB657fA54763abd0C3a0aa9. Send 80 MTK to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955. The total transferred must be exactly 360 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10",
+                "20",
+                "30",
+                "40",
+                "50",
+                "60",
+                "70",
+                "80"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+                "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+                "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-batch-09-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. Send 20 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. Send 30 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC. Send 40 MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906. Send 50 MTK to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65. Send 60 MTK to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc. Send 70 MTK to 0x976EA74026E726554dB657fA54763abd0C3a0aa9. Send 80 MTK to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955. Send 90 MTK to 0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897. The total transferred must be exactly 450 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10",
+                "20",
+                "30",
+                "40",
+                "50",
+                "60",
+                "70",
+                "80",
+                "90"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+                "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+                "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+                "0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-batch-10-ordered",
+      "description": "Batch ERC20 ordered recipient/amount + aggregate invariant",
+      "text": "Make exactly one atomic batch ERC20 transfer from the Treasury using MTK. Send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266. Send 20 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. Send 30 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC. Send 40 MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906. Send 50 MTK to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65. Send 60 MTK to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc. Send 70 MTK to 0x976EA74026E726554dB657fA54763abd0C3a0aa9. Send 80 MTK to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955. Send 90 MTK to 0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897. Send 100 MTK to 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720. The total transferred must be exactly 550 MTK. Use exactly one batch ERC20 operation.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "10",
+                "20",
+                "30",
+                "40",
+                "50",
+                "60",
+                "70",
+                "80",
+                "90",
+                "100"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+                "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+                "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+                "0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897",
+                "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-01",
+      "description": "ERC20 single exact amount 0.1 MTK",
+      "text": "From the DAO Treasury transfer exactly 0.1 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266.",
+      "enabled": true,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "amount": "0.1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-02",
+      "description": "ERC20 single exact amount 0.5 MTK",
+      "text": "From the DAO Treasury transfer exactly 0.5 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "amount": "0.5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-03",
+      "description": "ERC20 single exact amount 1 MTK",
+      "text": "From the DAO Treasury transfer exactly 1 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "amount": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-04",
+      "description": "ERC20 single exact amount 1.25 MTK",
+      "text": "From the DAO Treasury transfer exactly 1.25 MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906.",
+      "enabled": true,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "amount": "1.25"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-05",
+      "description": "ERC20 single exact amount 10 MTK",
+      "text": "From the DAO Treasury transfer exactly 10 MTK to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "amount": "10"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-06",
+      "description": "ERC20 single exact amount 25.5 MTK",
+      "text": "From the DAO Treasury transfer exactly 25.5 MTK to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "amount": "25.5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-07",
+      "description": "ERC20 single exact amount 80 MTK",
+      "text": "From the DAO Treasury transfer exactly 80 MTK to 0x976EA74026E726554dB657fA54763abd0C3a0aa9.",
+      "enabled": true,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+              "amount": "80"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-08",
+      "description": "ERC20 single exact amount 100.125 MTK",
+      "text": "From the DAO Treasury transfer exactly 100.125 MTK to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+              "amount": "100.125"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-09",
+      "description": "ERC20 single exact amount 900 MTK",
+      "text": "From the DAO Treasury transfer exactly 900 MTK to 0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897",
+              "amount": "900"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-erc20-single-10",
+      "description": "ERC20 single exact amount 1500 MTK",
+      "text": "From the DAO Treasury transfer exactly 1500 MTK to 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720.",
+      "enabled": false,
+      "group": "treasury-erc20",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+              "amount": "1500"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-01",
+      "description": "ETH single amount 0.0001",
+      "text": "Send exactly 0.0001 ETH from the DAO Treasury to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266.",
+      "enabled": true,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "amount": "0.0001"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-02",
+      "description": "ETH single amount 0.01",
+      "text": "Send exactly 0.01 ETH from the DAO Treasury to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "amount": "0.01"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-03",
+      "description": "ETH single amount 0.1",
+      "text": "Send exactly 0.1 ETH from the DAO Treasury to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "amount": "0.1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-04",
+      "description": "ETH single amount 0.25",
+      "text": "Send exactly 0.25 ETH from the DAO Treasury to 0x90F79bf6EB2c4f870365E785982E1f101E93b906.",
+      "enabled": true,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "amount": "0.25"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-05",
+      "description": "ETH single amount 0.75",
+      "text": "Send exactly 0.75 ETH from the DAO Treasury to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "amount": "0.75"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-06",
+      "description": "ETH single amount 1",
+      "text": "Send exactly 1 ETH from the DAO Treasury to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "amount": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-07",
+      "description": "ETH single amount 1.5",
+      "text": "Send exactly 1.5 ETH from the DAO Treasury to 0x976EA74026E726554dB657fA54763abd0C3a0aa9.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+              "amount": "1.5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-08",
+      "description": "ETH single amount 2.125",
+      "text": "Send exactly 2.125 ETH from the DAO Treasury to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+              "amount": "2.125"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-09",
+      "description": "ETH single amount 3.5",
+      "text": "Send exactly 3.5 ETH from the DAO Treasury to 0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897",
+              "amount": "3.5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-single-10",
+      "description": "ETH single amount 5.25",
+      "text": "Send exactly 5.25 ETH from the DAO Treasury to 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "single",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+              "amount": "5.25"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-batch-02",
+      "description": "Atomic ETH batch with 2 recipients",
+      "text": "Send native ETH atomically in a single batch from the DAO Treasury: 0.125 ETH to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; 0.25 ETH to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8. Total 0.375 ETH. Exactly one batch transfer operation.",
+      "enabled": true,
+      "group": "treasury-eth",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "0.125",
+                "0.25"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-batch-03",
+      "description": "Atomic ETH batch with 3 recipients",
+      "text": "Send native ETH atomically in a single batch from the DAO Treasury: 0.125 ETH to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; 0.25 ETH to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8; 0.375 ETH to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC. Total 0.75 ETH. Exactly one batch transfer operation.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "0.125",
+                "0.25",
+                "0.375"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-batch-04",
+      "description": "Atomic ETH batch with 4 recipients",
+      "text": "Send native ETH atomically in a single batch from the DAO Treasury: 0.125 ETH to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; 0.25 ETH to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8; 0.375 ETH to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC; 0.5 ETH to 0x90F79bf6EB2c4f870365E785982E1f101E93b906. Total 1.25 ETH. Exactly one batch transfer operation.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "0.125",
+                "0.25",
+                "0.375",
+                "0.5"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-batch-05",
+      "description": "Atomic ETH batch with 5 recipients",
+      "text": "Send native ETH atomically in a single batch from the DAO Treasury: 0.125 ETH to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; 0.25 ETH to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8; 0.375 ETH to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC; 0.5 ETH to 0x90F79bf6EB2c4f870365E785982E1f101E93b906; 0.625 ETH to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65. Total 1.875 ETH. Exactly one batch transfer operation.",
+      "enabled": true,
+      "group": "treasury-eth",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "0.125",
+                "0.25",
+                "0.375",
+                "0.5",
+                "0.625"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-batch-06",
+      "description": "Atomic ETH batch with 6 recipients",
+      "text": "Send native ETH atomically in a single batch from the DAO Treasury: 0.125 ETH to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; 0.25 ETH to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8; 0.375 ETH to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC; 0.5 ETH to 0x90F79bf6EB2c4f870365E785982E1f101E93b906; 0.625 ETH to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65; 0.75 ETH to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc. Total 2.625 ETH. Exactly one batch transfer operation.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "0.125",
+                "0.25",
+                "0.375",
+                "0.5",
+                "0.625",
+                "0.75"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-batch-07",
+      "description": "Atomic ETH batch with 7 recipients",
+      "text": "Send native ETH atomically in a single batch from the DAO Treasury: 0.125 ETH to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; 0.25 ETH to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8; 0.375 ETH to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC; 0.5 ETH to 0x90F79bf6EB2c4f870365E785982E1f101E93b906; 0.625 ETH to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65; 0.75 ETH to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc; 0.875 ETH to 0x976EA74026E726554dB657fA54763abd0C3a0aa9. Total 3.5 ETH. Exactly one batch transfer operation.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "0.125",
+                "0.25",
+                "0.375",
+                "0.5",
+                "0.625",
+                "0.75",
+                "0.875"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+                "0x976EA74026E726554dB657fA54763abd0C3a0aa9"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-eth-batch-08",
+      "description": "Atomic ETH batch with 8 recipients",
+      "text": "Send native ETH atomically in a single batch from the DAO Treasury: 0.125 ETH to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; 0.25 ETH to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8; 0.375 ETH to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC; 0.5 ETH to 0x90F79bf6EB2c4f870365E785982E1f101E93b906; 0.625 ETH to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65; 0.75 ETH to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc; 0.875 ETH to 0x976EA74026E726554dB657fA54763abd0C3a0aa9; 1.0 ETH to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955. Total 4.5 ETH. Exactly one batch transfer operation.",
+      "enabled": false,
+      "group": "treasury-eth",
+      "tags": [
+        "batch",
+        "amount-integrity"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "0.125",
+                "0.25",
+                "0.375",
+                "0.5",
+                "0.625",
+                "0.75",
+                "0.875",
+                "1.0"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+                "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+                "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-delay-zero",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor voting delay to 0 blocks.",
+      "enabled": false,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newVotingDelay": "0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-delay-one",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor voting delay to 1 block.",
+      "enabled": true,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter",
+        "smoke"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newVotingDelay": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-delay-large",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor voting delay to 500 blocks.",
+      "enabled": false,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newVotingDelay": "500"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-period-one",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor voting period to 1 block.",
+      "enabled": false,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingPeriod"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newVotingPeriod": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-period-7200",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor voting period to 7200 blocks.",
+      "enabled": false,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingPeriod"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newVotingPeriod": "7200"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-quorum-one",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor quorum numerator to 1, or 1%.",
+      "enabled": false,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newQuorumNumerator": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-quorum-four",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor quorum numerator to 4, or 4%.",
+      "enabled": true,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newQuorumNumerator": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-quorum-hundred",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor quorum numerator to 100 (100%).",
+      "enabled": false,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newQuorumNumerator": "100"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-threshold-zero",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor proposal threshold to 0 MTK.",
+      "enabled": false,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setProposalThreshold"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newProposalThreshold": "0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governor-threshold-five",
+      "description": "Governance boundary compile + exact argument",
+      "text": "Set MyGovernor proposal threshold to 5 MTK.",
+      "enabled": false,
+      "group": "governance",
+      "tags": [
+        "governance",
+        "parameter"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setProposalThreshold"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newProposalThreshold": "5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-governance-triple-extreme",
+      "description": "Three intentionally extreme Governor changes (no implied approval)",
+      "text": "Create one DAO governance proposal containing exactly three operations: set MyGovernor voting delay to 0 blocks, set voting period to 1 block, and set quorum numerator to 1 (1%). Do not change the Timelock delay or transfer tokens. All three changes are intentional.",
+      "enabled": false,
+      "group": "governance",
+      "tags": [
+        "adversarial",
+        "governance-policy"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay",
+            "governor.setVotingPeriod",
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 3,
+          "executableActions": 3,
+          "operationArguments": [
+            {
+              "newVotingDelay": "0"
+            },
+            {
+              "newVotingPeriod": "1"
+            },
+            {
+              "newQuorumNumerator": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-timelock-120",
+      "description": "Configurable settings/Timelock exact integer",
+      "text": "Set the TimelockController minimum execution delay to 120 seconds.",
+      "enabled": false,
+      "group": "settings-and-timelock",
+      "tags": [
+        "settings"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.updateDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newDelay": "120"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-timelock-3600",
+      "description": "Configurable settings/Timelock exact integer",
+      "text": "Set the TimelockController minimum execution delay to 3600 seconds.",
+      "enabled": false,
+      "group": "settings-and-timelock",
+      "tags": [
+        "settings"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.updateDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newDelay": "3600"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-reward-rate-zero",
+      "description": "Configurable settings/Timelock exact integer",
+      "text": "Set DAOSettings reward rate to 0.",
+      "enabled": false,
+      "group": "settings-and-timelock",
+      "tags": [
+        "settings"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "daoSettings.setRewardRate"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newRate": "0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-reward-rate-42",
+      "description": "Configurable settings/Timelock exact integer",
+      "text": "Set DAOSettings reward rate to 42.",
+      "enabled": true,
+      "group": "settings-and-timelock",
+      "tags": [
+        "settings"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "daoSettings.setRewardRate"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "newRate": "42"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-missing-amount-01",
+      "description": "Missing erc20 amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 in MTK; the amount has not been specified.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-missing-amount-01",
+      "description": "Missing eth amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 in ETH; the amount has not been specified.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-missing-amount-02",
+      "description": "Missing erc20 amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 in MTK; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-missing-amount-02",
+      "description": "Missing eth amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 in ETH; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-missing-amount-03",
+      "description": "Missing erc20 amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC in MTK; the amount has not been specified.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-missing-amount-03",
+      "description": "Missing eth amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC in ETH; the amount has not been specified.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-missing-amount-04",
+      "description": "Missing erc20 amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x90F79bf6EB2c4f870365E785982E1f101E93b906 in MTK; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-missing-amount-04",
+      "description": "Missing eth amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x90F79bf6EB2c4f870365E785982E1f101E93b906 in ETH; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-missing-amount-05",
+      "description": "Missing erc20 amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65 in MTK; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-missing-amount-05",
+      "description": "Missing eth amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65 in ETH; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-missing-amount-06",
+      "description": "Missing erc20 amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc in MTK; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-missing-amount-06",
+      "description": "Missing eth amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc in ETH; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-missing-amount-07",
+      "description": "Missing erc20 amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x976EA74026E726554dB657fA54763abd0C3a0aa9 in MTK; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-missing-amount-07",
+      "description": "Missing eth amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x976EA74026E726554dB657fA54763abd0C3a0aa9 in ETH; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-missing-amount-08",
+      "description": "Missing erc20 amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955 in MTK; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-missing-amount-08",
+      "description": "Missing eth amount must not invent",
+      "text": "Transfer from the DAO Treasury to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955 in ETH; the amount has not been specified.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-address-01",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 MTK from DAO Treasury to 0x1234. The destination is explicitly 0x1234, do not substitute.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address",
+        "smoke"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-address-01",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 ETH from DAO Treasury to 0x1234. The destination is explicitly 0x1234, do not substitute.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-address-02",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 MTK from DAO Treasury to 0xGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG. The destination is explicitly 0xGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG, do not substitute.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-address-02",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 ETH from DAO Treasury to 0xGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG. The destination is explicitly 0xGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG, do not substitute.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-address-03",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 MTK from DAO Treasury to 0x111111111111111111111111111111111111111. The destination is explicitly 0x111111111111111111111111111111111111111, do not substitute.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-address-03",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 ETH from DAO Treasury to 0x111111111111111111111111111111111111111. The destination is explicitly 0x111111111111111111111111111111111111111, do not substitute.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-address-04",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 MTK from DAO Treasury to 0x11111111111111111111111111111111111111111. The destination is explicitly 0x11111111111111111111111111111111111111111, do not substitute.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-address-04",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 ETH from DAO Treasury to 0x11111111111111111111111111111111111111111. The destination is explicitly 0x11111111111111111111111111111111111111111, do not substitute.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-address-05",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 MTK from DAO Treasury to not-an-address. The destination is explicitly not-an-address, do not substitute.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-address-05",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 ETH from DAO Treasury to not-an-address. The destination is explicitly not-an-address, do not substitute.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-address-06",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 MTK from DAO Treasury to 0xzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz. The destination is explicitly 0xzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, do not substitute.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-address-06",
+      "description": "Invalid recipient literal must be rejected",
+      "text": "Transfer 10 ETH from DAO Treasury to 0xzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz. The destination is explicitly 0xzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, do not substitute.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "malformed-address"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-01",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly -1 MTK from the DAO Treasury to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-02",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly -0.25 MTK from the DAO Treasury to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-03",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly -999 MTK from the DAO Treasury to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-04",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly one hundred MTK from the DAO Treasury to 0x90F79bf6EB2c4f870365E785982E1f101E93b906.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-05",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly NaN MTK from the DAO Treasury to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-06",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly infinity MTK from the DAO Treasury to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-07",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly -0.001 MTK from the DAO Treasury to 0x976EA74026E726554dB657fA54763abd0C3a0aa9.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-08",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly -10 MTK from the DAO Treasury to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-09",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly -20 MTK from the DAO Treasury to 0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-erc20-bad-amount-10",
+      "description": "Explicit malformed/negative token amount",
+      "text": "Send exactly -100 MTK from the DAO Treasury to 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-01",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly -1 ETH from the DAO Treasury to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-02",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly -0.25 ETH from the DAO Treasury to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-03",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly -999 ETH from the DAO Treasury to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-04",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly one hundred ETH from the DAO Treasury to 0x90F79bf6EB2c4f870365E785982E1f101E93b906.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-05",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly NaN ETH from the DAO Treasury to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-06",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly infinity ETH from the DAO Treasury to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-07",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly -0.001 ETH from the DAO Treasury to 0x976EA74026E726554dB657fA54763abd0C3a0aa9.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-08",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly -10 ETH from the DAO Treasury to 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-09",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly -20 ETH from the DAO Treasury to 0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-eth-bad-amount-10",
+      "description": "Explicit malformed/negative ETH amount",
+      "text": "Send exactly -100 ETH from the DAO Treasury to 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "invalid-amount"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-batch-erc20-omission-01",
+      "description": "Batch transfer with one unspecified recipient amount",
+      "text": "One batch transfer: send 10 MTK to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, and also send MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 but its amount is not specified. Keep both recipients.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "batch",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-batch-erc20-omission-02",
+      "description": "Batch transfer with one unspecified recipient amount",
+      "text": "One batch transfer: send 10 MTK to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8, and also send MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC but its amount is not specified. Keep both recipients.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "batch",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-batch-erc20-omission-03",
+      "description": "Batch transfer with one unspecified recipient amount",
+      "text": "One batch transfer: send 10 MTK to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC, and also send MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906 but its amount is not specified. Keep both recipients.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "batch",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-batch-erc20-omission-04",
+      "description": "Batch transfer with one unspecified recipient amount",
+      "text": "One batch transfer: send 10 MTK to 0x90F79bf6EB2c4f870365E785982E1f101E93b906, and also send MTK to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65 but its amount is not specified. Keep both recipients.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "batch",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-batch-erc20-omission-05",
+      "description": "Batch transfer with one unspecified recipient amount",
+      "text": "One batch transfer: send 10 MTK to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65, and also send MTK to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc but its amount is not specified. Keep both recipients.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "batch",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-batch-erc20-omission-06",
+      "description": "Batch transfer with one unspecified recipient amount",
+      "text": "One batch transfer: send 10 MTK to 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc, and also send MTK to 0x976EA74026E726554dB657fA54763abd0C3a0aa9 but its amount is not specified. Keep both recipients.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "batch",
+        "missing-value"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-quorum-over-limit-01",
+      "description": "Quorum numerator over 100 rejected",
+      "text": "Set MyGovernor quorum numerator to exactly 101 percent.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "quorum"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-quorum-over-limit-02",
+      "description": "Quorum numerator over 100 rejected",
+      "text": "Set MyGovernor quorum numerator to exactly 125 percent.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "quorum"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-quorum-over-limit-03",
+      "description": "Quorum numerator over 100 rejected",
+      "text": "Set MyGovernor quorum numerator to exactly 150 percent.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "quorum"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-quorum-over-limit-04",
+      "description": "Quorum numerator over 100 rejected",
+      "text": "Set MyGovernor quorum numerator to exactly 200 percent.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "quorum"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-quorum-over-limit-05",
+      "description": "Quorum numerator over 100 rejected",
+      "text": "Set MyGovernor quorum numerator to exactly 1000 percent.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "quorum"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-quorum-over-limit-06",
+      "description": "Quorum numerator over 100 rejected",
+      "text": "Set MyGovernor quorum numerator to exactly 9999 percent.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "quorum"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-unregistered-call-01",
+      "description": "No arbitrary unregistered action",
+      "text": "Execute custom function foo1(uint256) against unregistered contract 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 with input 1. Do not use any registered capability.",
+      "enabled": true,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "unregistered"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-unregistered-call-02",
+      "description": "No arbitrary unregistered action",
+      "text": "Execute custom function foo2(uint256) against unregistered contract 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC with input 1. Do not use any registered capability.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "unregistered"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-unregistered-call-03",
+      "description": "No arbitrary unregistered action",
+      "text": "Execute custom function foo3(uint256) against unregistered contract 0x90F79bf6EB2c4f870365E785982E1f101E93b906 with input 1. Do not use any registered capability.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "unregistered"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-unregistered-call-04",
+      "description": "No arbitrary unregistered action",
+      "text": "Execute custom function foo4(uint256) against unregistered contract 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65 with input 1. Do not use any registered capability.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "unregistered"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-unregistered-call-05",
+      "description": "No arbitrary unregistered action",
+      "text": "Execute custom function foo5(uint256) against unregistered contract 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc with input 1. Do not use any registered capability.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "unregistered"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-unknown-role-01",
+      "description": "Unknown access role cannot be made up",
+      "text": "Grant hypothetical TIMEWARP_ADMIN_1_ROLE to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 on the TimelockController. This is not a standard Timelock role.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "access-role"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-unknown-role-02",
+      "description": "Unknown access role cannot be made up",
+      "text": "Grant hypothetical TIMEWARP_ADMIN_2_ROLE to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC on the TimelockController. This is not a standard Timelock role.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "access-role"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-unknown-role-03",
+      "description": "Unknown access role cannot be made up",
+      "text": "Grant hypothetical TIMEWARP_ADMIN_3_ROLE to 0x90F79bf6EB2c4f870365E785982E1f101E93b906 on the TimelockController. This is not a standard Timelock role.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "access-role"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-negative-unknown-role-04",
+      "description": "Unknown access role cannot be made up",
+      "text": "Grant hypothetical TIMEWARP_ADMIN_4_ROLE to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65 on the TimelockController. This is not a standard Timelock role.",
+      "enabled": false,
+      "group": "negative-input",
+      "tags": [
+        "negative",
+        "access-role"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": false
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-01",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 precisely 5 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "amount": "5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-02",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 precisely 10 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "amount": "10"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-03",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC precisely 15 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "amount": "15"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-04",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0x90F79bf6EB2c4f870365E785982E1f101E93b906 precisely 20 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "amount": "20"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-05",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65 precisely 25 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "amount": "25"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-06",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc precisely 30 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "amount": "30"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-07",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0x976EA74026E726554dB657fA54763abd0C3a0aa9 precisely 35 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+              "amount": "35"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-08",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955 precisely 40 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+              "amount": "40"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-09",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897 precisely 45 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0x23618e81E3eF5aB1c35eD6D7dF13b4f8E7e3a897",
+              "amount": "45"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-optional-token-paraphrase-10",
+      "description": "Alternate natural-language ERC20 intent phrasing",
+      "text": "Please have the Treasury pay 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720 precisely 50 MTK in one token transfer as an on-chain Governor action.",
+      "enabled": false,
+      "group": "optional-paraphrase",
+      "tags": [
+        "optional",
+        "paraphrase"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "to": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+              "amount": "50"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "release-registered-erc721-transfer",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Transfer NFT token ID 73 from 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 using the configured registered ERC721 contract.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-erc721",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-erc1155-transfer",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Transfer 5 ERC1155 units of token ID 4 from 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 using the registered ERC1155 contract.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-erc1155",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-pause",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Pause the registered Pausable contract using its approved pause template.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-pausable",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-unpause",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Unpause the registered Pausable contract using its approved unpause template.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-pausable",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-ownable",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Transfer ownership of the registered Ownable contract to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-ownable",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-uups",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Upgrade the registered UUPS proxy to implementation 0x90F79bf6EB2c4f870365E785982E1f101E93b906.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-uups",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-erc20-mint",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Mint 50 units using a registered ERC20 mint template, recipient 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-erc20",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-erc20-burn",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Burn 20 units using a registered ERC20 burn template.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-erc20",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-staking",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Stake 100 MTK using the configured registered staking contract.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-defi",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-lending",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Supply 15 MTK using the configured lending protocol.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-defi",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    },
+    {
+      "id": "release-registered-bridge",
+      "description": "OPTIONAL: needs registry and deployed external contracts",
+      "text": "Bridge 10 MTK using the registered bridge to configured destination.",
+      "enabled": false,
+      "group": "optional-registered",
+      "tags": [
+        "registered",
+        "manual-fixture"
+      ],
+      "requires": [
+        "registered-defi",
+        "deployed-contract"
+      ],
+      "expected": {
+        "compile": {
+          "success": true
+        }
+      }
+    }
+  ],
+  "caseSchemaNotes": {
+    "enabledFalse": "Optional tests skipped by default; enable only if required chain, registry or budget is available",
+    "operationArguments": "Optional exact semantic argument checks in run-yanfu-ai-pipeline-test.js; never substitutes for calldata and on-chain tests",
+    "smokeFilter": "PowerShell: $env:YANFU_TEST_TAG=\"smoke\"; npm run test:auto-ai; Remove-Item Env:YANFU_TEST_TAG"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "version": 2,
+  "enabled": true,
+  "rejectMalformedAddressLiterals": true,
+  "rejectConfiguredAddressConflicts": true,
+  "reviewExplicitSourceLiterals": true,
+  "configuredAddressAliases": {
+    "contractFactory": [
+      "DAOContractFactory",
+      "contract factory",
+      "deployment factory"
+    ],
+    "treasury": [
+      "Treasury",
+      "DAO Treasury",
+      "treasury contract"
+    ],
+    "token": [
+      "MyToken",
+      "GovernanceToken",
+      "governance token",
+      "token contract"
+    ],
+    "governor": [
+      "MyGovernor",
+      "Governor",
+      "governor contract"
+    ],
+    "timelock": [
+      "TimelockController",
+      "Timelock",
+      "timelock contract"
+    ],
+    "daoSettings": [
+      "DAOSettings",
+      "DAO Settings",
+      "settings contract"
+    ]
+  },
+  "genericAddressKeywords": [
+    "address",
+    "recipient",
+    "spender",
+    "owner",
+    "account",
+    "implementation",
+    "target",
+    "proxy",
+    "router",
+    "contract"
+  ]
+}

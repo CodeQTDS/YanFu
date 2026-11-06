@@ -1,0 +1,374 @@
+{
+  "version": 1,
+  "targetYanFuVersion": "1.0.0",
+  "description": "Targeted follow-up to 2026-10-27 242-case report: 8 recorded failures, 2 network-masked negative tests, and 4 unanimously approved HIGH-risk scenarios. Two malformed-address tests now require deterministic INPUT_CONFLICT rather than accepting any failure. Does not modify production source.",
+  "cases": [
+    {
+      "id": "builtin-timelock-delay-positive",
+      "description": "Governance Pack: update Timelock minimum execution delay.",
+      "text": "Change the Timelock minimum execution delay to 3600 seconds.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.updateDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-governance-parameters-positive",
+      "description": "Composition: voting period, proposal threshold and quorum changes together.",
+      "text": "In one proposal, set the Governor voting period to 10000 blocks, set the proposal threshold to 2500 MTK, and set the quorum numerator to 6 percent.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingPeriod",
+            "governor.setProposalThreshold",
+            "governor.updateQuorumNumerator"
+          ],
+          "semanticOperations": 3,
+          "executableActions": 3
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "builtin-multi-action-admin-positive",
+      "description": "Composition: grant one Timelock role and revoke another.",
+      "text": "In one proposal, grant CANCELLER_ROLE on the Timelock to 0x5555555555555555555555555555555555555555 and revoke EXECUTOR_ROLE from 0x6666666666666666666666666666666666666666.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.grantRole",
+            "timelock.revokeRole"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-treasury-eth-overspend-analysis-review",
+      "description": "Analysis/Review: single ETH transfer greatly exceeds normal local Treasury balance.",
+      "text": "Transfer 1000000 ETH from the DAO Treasury to 0x9999999999999999999999999999999999999999.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferETH"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-treasury-token-overspend-analysis-review",
+      "description": "Analysis/Review: single MTK transfer exceeds the initial token supply/Treasury allocation.",
+      "text": "Transfer 2000000 MTK from the DAO Treasury to 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.transferERC20"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "riskLevel": "HIGH",
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "smoke",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "negative-treasury-token-batch-overspend-analysis-review",
+      "description": "Analysis/Review: aggregate batch MTK transfer exceeds Treasury token balance.",
+      "text": "Using one atomic MTK batch transfer from the DAO Treasury, send 600000 MTK to 0x1111111111111111111111111111111111111111 and 600000 MTK to 0x2222222222222222222222222222222222222222.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "riskLevel": "HIGH",
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-treasury-eth-batch-three-recipients",
+      "description": "Positive: preserve three decimal ETH amounts in one atomic batch call.",
+      "text": "Make one atomic Treasury ETH batch payment: send 0.001 ETH to 0x1111111111111111111111111111111111111111, 0.002 ETH to 0x2222222222222222222222222222222222222222, and 0.003 ETH to 0x3333333333333333333333333333333333333333.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-governance-voting-delay-and-message",
+      "description": "Positive: compile two distinct governance actions in their requested order.",
+      "text": "In a single Governor proposal, change voting delay to 18 blocks and set the DAO message to \"YanFu 4.1 regression — human intent preserved\".",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "governor.setVotingDelay",
+            "daoSettings.setMessage"
+          ],
+          "semanticOperations": 2,
+          "executableActions": 2
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-governance-message-special-characters",
+      "description": "Positive: preserve a human-supplied message with punctuation and apostrophes.",
+      "text": "Set the DAO message to \"YanFu v1.0: reviewers check treasury, security, and intent; do not rewrite recipients!\".",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "daoSettings.setMessage"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-timelock-delay-one-hour",
+      "description": "Positive: use seconds, not blocks, for a Timelock delay.",
+      "text": "Set the Timelock minimum delay to exactly 3600 seconds.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "timelock.updateDelay"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-erc20-malformed-recipient",
+      "description": "Negative: a malformed explicit recipient address cannot be silently corrected.",
+      "text": "Transfer 6 MTK from the DAO Treasury to exactly 0x123; do not choose or replace the recipient.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "INPUT_CONFLICT"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-negative-eth-malformed-recipient",
+      "description": "Negative: reject malformed explicit recipient for an ETH Treasury transfer.",
+      "text": "Transfer 0.04 ETH from the DAO Treasury to exactly 0xabc; do not substitute a different address.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": false,
+          "errorCode": "INPUT_CONFLICT"
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "v410-safety-extreme-mtk-batch-overspend",
+      "description": "Safety: one atomic ERC20 batch with aggregate outflow far above the standard 1 million MTK deployment.",
+      "text": "Using one atomic Treasury MTK batch, transfer 600000000 MTK to 0x1111111111111111111111111111111111111111 and 600000000 MTK to 0x2222222222222222222222222222222222222222.",
+      "enabled": true,
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferERC20"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1
+        },
+        "analyze": {
+          "success": true,
+          "simulationSuccess": false
+        },
+        "review": {
+          "success": true,
+          "verdictIn": [
+            "NEEDS_CHANGES",
+            "REJECT"
+          ]
+        }
+      },
+      "group": "v410-baseline",
+      "tags": [
+        "baseline",
+        "v411-risk-followup"
+      ],
+      "requires": []
+    },
+    {
+      "id": "release-eth-batch-05",
+      "description": "Atomic ETH batch with 5 recipients",
+      "text": "Send native ETH atomically in a single batch from the DAO Treasury: 0.125 ETH to 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; 0.25 ETH to 0x70997970C51812dc3A010C7d01b50e0d17dc79C8; 0.375 ETH to 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC; 0.5 ETH to 0x90F79bf6EB2c4f870365E785982E1f101E93b906; 0.625 ETH to 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65. Total 1.875 ETH. Exactly one batch transfer operation.",
+      "enabled": true,
+      "group": "treasury-eth",
+      "tags": [
+        "batch",
+        "amount-integrity",
+        "v411-risk-followup"
+      ],
+      "requires": [],
+      "expected": {
+        "compile": {
+          "success": true,
+          "capabilities": [
+            "treasury.batchTransferETH"
+          ],
+          "semanticOperations": 1,
+          "executableActions": 1,
+          "operationArguments": [
+            {
+              "amounts": [
+                "0.125",
+                "0.25",
+                "0.375",
+                "0.5",
+                "0.625"
+              ],
+              "recipients": [
+                "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

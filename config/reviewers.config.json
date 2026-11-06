@@ -1,0 +1,164 @@
+{
+  "version": 5,
+  "limits": {
+    "minReviewers": 1,
+    "maxReviewers": 5,
+    "requireUniqueModels": false,
+    "requireUniqueModelRolePairs": true
+  },
+  "profiles": [
+    {
+      "id": "general-governance",
+      "label": "General Governance",
+      "description": "Balanced review of intent fidelity, technical validity, governance impact and execution readiness.",
+      "instructions": [
+        "Review the proposal end to end.",
+        "Give equal attention to user intent, semantic actions, encoded execution, chain evidence and governance consequences."
+      ],
+      "primaryMission": "Overall proposal readiness and accountability",
+      "roleQuestions": [
+        "Assess proposal intent, authorization, executable payload and governance acceptability as a whole.",
+        "Explain the combined governance decision, including which issues require changes rather than merely disclosure.",
+        "Do not substitute a detailed treasury or literal-by-literal audit for the broad governance conclusion."
+      ],
+      "evidencePriorities": [
+        "sourceRequest",
+        "deterministicReview",
+        "simulation",
+        "chainContext"
+      ],
+      "decisionCriteria": [
+        "Decide whether the full proposal is responsibly governable, not just whether it compiles and simulates.",
+        "Technical validity plus explicit human intent does not automatically warrant approval when participation, accountability or abuse resistance is materially undermined.",
+        "Use NEEDS_CHANGES only for a concrete governance improvement or evidence requirement; use REJECT only for an explained unacceptable policy risk."
+      ]
+    },
+    {
+      "id": "intent-fidelity",
+      "label": "Intent Fidelity",
+      "description": "Compare the original natural-language request with semantic actions, configured defaults and encoded execution; flag omissions, substitutions and contradictions.",
+      "instructions": [
+        "Treat the original natural-language request as authoritative human intent.",
+        "Compare every explicit recipient, amount, address, target, protected literal, requested action count and constraint with the semantic and encoded proposal.",
+        "A configured default may fill omitted information, but must never silently replace an explicit conflicting user value.",
+        "Treat invented, omitted, substituted or materially changed intent as a blocking issue."
+      ],
+      "primaryMission": "Exact source-to-execution fidelity",
+      "roleQuestions": [
+        "Compare every explicit recipient, amount, sum, action count and atomicity requirement against the decoded, authoritative Governor calldata.",
+        "Quote only discrepancies grounded in the source request and actual executable fields; specify exact before/after values.",
+        "Distinguish an explicitly approved new instruction from an unapproved human payload edit. An edited description alone does not erase original source provenance."
+      ],
+      "evidencePriorities": [
+        "sourceRequest",
+        "proposal.encodedGovernor",
+        "proposal.provenance"
+      ],
+      "decisionCriteria": [
+        "Evaluate strict preservation of explicit human intent and authorized operations, without inventing external preference constraints.",
+        "If all requests and protected facts match current executable calldata and shared deterministic blockers are absent, an APPROVE with risk disclosure can be reasonable.",
+        "Do not downgrade solely because another role could dislike an intentional policy choice; still report grounded unintended consequences relevant to ambiguity or fidelity."
+      ]
+    },
+    {
+      "id": "security-execution",
+      "label": "Security & Execution",
+      "description": "Focus on technical execution safety, permissions, targets, calldata consistency and simulation evidence.",
+      "instructions": [
+        "Prioritize execution blockers, permission errors, suspicious targets, unsafe deployment behavior and failed simulation.",
+        "Distinguish deterministic evidence from judgment."
+      ],
+      "primaryMission": "Authorization and on-chain execution correctness",
+      "roleQuestions": [
+        "Check exact targets, function selectors/decoded arguments, timelock caller permissions and simulation blockers.",
+        "Explain what eth_call establishes and does not establish, including possible future state changes.",
+        "Treat unsupported raw calldata as undecoded; never claim it is safe from stale semantic metadata."
+      ],
+      "evidencePriorities": [
+        "proposal.encodedGovernor",
+        "simulation",
+        "chainContext.contracts",
+        "deterministicReview"
+      ],
+      "decisionCriteria": [
+        "Separate EVM call success from operational safety and abuse-resistance of the resulting system configuration.",
+        "Identify permission-bypass mechanisms, irreversible or exploitation-enabling reductions in safeguards if supported by evidence; a successful eth_call is not a safety guarantee.",
+        "Approve a valid implementation when no substantiated role-specific security reason remains; otherwise document precise security exposure and required mitigation."
+      ]
+    },
+    {
+      "id": "treasury-governance",
+      "label": "Treasury & Governance Impact",
+      "description": "Focus on treasury impact, governance consequences and whether the proposal creates unusual authority or economic exposure.",
+      "instructions": [
+        "Assess material Treasury movement and governance parameter changes.",
+        "Call out changes that are technically valid but deserve explicit human confirmation."
+      ],
+      "primaryMission": "Treasury magnitude, recipients and economic exposure",
+      "roleQuestions": [
+        "Compute and explain the actual proposed token/ETH outflow and recipient allocation from decoded executable actions.",
+        "Compare the proposed outflow with original requested totals when available, and with currently supplied Treasury balances; distinguish any increase from a current-balance shortfall.",
+        "Discuss governance-economic implications and future execution funding uncertainty; do not repeat only the source-intent verdict."
+      ],
+      "evidencePriorities": [
+        "proposal.encodedGovernor",
+        "deterministicActionAnalysis.treasury",
+        "chainContext.treasury",
+        "chainContext.token"
+      ],
+      "decisionCriteria": [
+        "Judge direct treasury outflow and indirect future asset-exposure independently; zero immediate outflow does not imply zero economic governance risk.",
+        "Evaluate whether the demonstrated governance parameter shift materially increases ability to pass consequential future treasury proposals.",
+        "Distinguish an indirect policy concern from an actual on-chain balance/transfer failure; make a negative recommendation only with clear economic rationale."
+      ]
+    },
+    {
+      "id": "governance-mechanism",
+      "label": "Governance Mechanism & Process",
+      "description": "Review timelock, vote mechanics, delegated authority, contract upgrades and execution-order effects.",
+      "instructions": [
+        "Assess governance mechanics, voting parameters, permissions and timelock dependencies.",
+        "Identify proposals that are valid in isolation but depend on earlier execution or changing treasury balances.",
+        "Separate technical blockers from policy and organizational considerations."
+      ],
+      "primaryMission": "Governor and Timelock procedure",
+      "roleQuestions": [
+        "Check vote/quorum/threshold/timelock mechanisms, privileges and ordering dependencies relevant to the particular proposal.",
+        "State when the transaction does not itself change governance parameters; evaluate whether the governance process still has relevant approval or execution constraints.",
+        "Distinguish successful Governor proposal creation from successful eventual action execution."
+      ],
+      "evidencePriorities": [
+        "chainContext.governance",
+        "deterministicActionAnalysis.authorityChanges",
+        "proposal.encodedGovernor",
+        "simulation"
+      ],
+      "decisionCriteria": [
+        "Assess governance participation, quorum legitimacy, warning windows, timelock protections, and minority-capture exposure after the proposed change.",
+        "A technically valid but nearly unworkable voting window or very low quorum may justify NEEDS_CHANGES or REJECT based on explicit governance-process reasoning, not a fabricated contract rule.",
+        "Explain what mechanism causes the risk and what would meaningfully restore process integrity; do not require a different verdict just for role differentiation."
+      ]
+    }
+  ],
+  "consensus": {
+    "approvalPolicy": "unanimous",
+    "rejectDominates": true,
+    "deterministicFailureForcesChanges": true,
+    "preferredRevisionSelection": "highest-confidence-blocking-review"
+  },
+  "loopCompatibility": {
+    "protocolVersion": "yanfu-review-loop-v1",
+    "supportsRoundContext": true,
+    "supportsParentSession": true,
+    "supportsCompilerRevisionCandidates": true,
+    "automaticLoopEnabled": false,
+    "maxAutomaticRounds": 0
+  },
+  "profileDefaults": [
+    "general-governance",
+    "treasury-governance",
+    "intent-fidelity",
+    "security-execution",
+    "governance-mechanism"
+  ]
+}

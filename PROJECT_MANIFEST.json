@@ -1,0 +1,11 @@
+{
+  "name": "YanFu Governance Compiler",
+  "version": "1.0.0",
+  "releaseLabel": "v1.0",
+  "entrypoint": "README.md",
+  "setup": "npm ci && npm run setup",
+  "validation": "docs/VALIDATION.md",
+  "publication": "docs/PUBLICATION.md",
+  "manifest": "MANIFEST.json",
+  "manifestScope": "SHA-256 of project files excluding these two manifests; ignores local/private/generated paths"
+}

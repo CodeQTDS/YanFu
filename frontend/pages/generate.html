@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generate · YanFu Governance Compiler v1.0</title>
+  <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar"><div class="brand"><div class="brand-mark">YF</div><div class="brand-text"><strong>YanFu Governance Compiler v1.0</strong><span>Generate</span></div></div><nav id="appNav" class="nav"></nav><div class="sidebar-footer">AI translates intent into configured semantic capabilities; deterministic code owns validation and ABI encoding.</div></aside>
+  <main class="main">
+    <header class="page-header"><div><h1>Generate proposal</h1><p>Describe governance intent naturally. The selected model plans against configured capabilities and current chain context; deterministic code validates and encodes the executable proposal.</p></div><div id="chainSummary" class="badge">Loading chain…</div></header>
+    <div id="workflowBar" class="workflow"></div>
+    <div class="grid two">
+      <section class="card">
+        <div id="iterationNotice" class="loop-provenance" hidden>
+          <strong>Review-driven revision</strong>
+          <div id="iterationNoticeText" class="small" style="margin:6px 0 10px"></div>
+          <button id="clearIterationBtn" class="btn">Treat as fresh request</button>
+        </div>
+        <div class="field"><label>Generation model</label><select id="modelSelect"></select></div>
+        <div class="field"><label>Natural-language governance request</label><textarea id="proposalText" placeholder="Example: Using one batch ERC20 transfer from the DAO Treasury, send 10 MTK to 0x… and 20 MTK to 0x…"></textarea></div>
+        <div class="callout">Addresses, amounts, deployment bytecode and CREATE2 salts are validated deterministically. Missing or contradictory information should produce clarification instead of executable calldata.</div>
+        <div id="generateStatus" class="status">Ready.</div>
+        <div class="actions"><button id="generateBtn" class="btn primary">Generate proposal</button><a id="continueAnalyzeBtn" class="btn" href="analyze.html">Continue to Analyze</a></div>
+      </section>
+      <section class="card"><h2>Generated proposal</h2><p>Semantic actions remain human-readable and editable; encoded fields are deterministic outputs.</p><pre id="proposalOutput">No proposal yet.</pre></section>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/api.js"></script><script src="../assets/js/state.js"></script><script src="../assets/js/nav.js"></script><script src="../assets/js/models.js"></script><script src="../assets/js/ui.js"></script><script src="../assets/js/generate.js"></script>
+</body>
+</html>

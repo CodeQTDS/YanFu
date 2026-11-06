@@ -1,0 +1,21 @@
+"use strict";
+const assert=require('assert'),fs=require('fs'),path=require('path'),vm=require('vm');
+const source=fs.readFileSync(path.join(__dirname,'run-yanfu-ai-pipeline-test.js'),'utf8');
+const start=source.indexOf('function compileFacts('),end=source.indexOf('function analysisFacts(');
+assert(start>=0 && end>start,'compile assertion functions present');
+const box={};vm.runInNewContext(source.slice(start,end)+'\nexports.check=assertCompile;', {exports:box});
+const addresses=['0x'+'1'.repeat(40),'0x'+'2'.repeat(40)];
+const plan={operations:[{capabilityId:'treasury.batchTransferERC20',arguments:{recipients:addresses,amounts:['10','20']}}]};
+const proposal={plan,actions:[{capabilityId:'treasury.batchTransferERC20',arguments:plan.operations[0].arguments}],targets:['0x'+'a'.repeat(40)],values:['0'],calldatas:['0x12345678']};
+const expected={capabilities:['treasury.batchTransferERC20'],semanticOperations:1,executableActions:1,operationArguments:[{recipients:addresses,amounts:['10.0','20']}]};
+let checks=0;
+function verify(pass,p,e,label){const errors=box.check(p,e).errors;assert.strictEqual(errors.length===0,pass,`${label}: ${errors.join('; ')}`);checks++}
+verify(true,proposal,expected,'equal decimal formatting');
+verify(true,{...proposal,plan:{operations:[{...plan.operations[0],arguments:{recipients:addresses.map(x=>x.toUpperCase().replace('0X','0x')),amounts:[10,20]}}]}},expected,'Ethereum address case normalization');
+const wrongAmt=JSON.parse(JSON.stringify(proposal));wrongAmt.plan.operations[0].arguments.amounts[0]='11';verify(false,wrongAmt,expected,'wrong amount blocked');
+const wrongRecipient=JSON.parse(JSON.stringify(proposal));wrongRecipient.plan.operations[0].arguments.recipients[1]='0x'+'3'.repeat(40);verify(false,wrongRecipient,expected,'wrong recipient blocked');
+const wrongOrder=JSON.parse(JSON.stringify(proposal));wrongOrder.plan.operations[0].arguments.recipients.reverse();verify(false,wrongOrder,expected,'wrong recipient order blocked');
+const wrongCapability=JSON.parse(JSON.stringify(proposal));wrongCapability.plan.operations[0].capabilityId='treasury.transferERC20';verify(false,wrongCapability,expected,'wrong capability blocked');
+verify(false,{...proposal,calldatas:['0x']},expected,'missing encoded calldata blocked');
+verify(false,{...proposal,values:[]},expected,'misaligned Governor arrays blocked');
+console.log(`PASS ${checks} exact-argument/capability/encoded-layout runner assertion regressions`);

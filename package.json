@@ -1,0 +1,55 @@
+{
+  "name": "yanfu-governance-compiler",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Configurable AI governance proposal compiler with multi-model review, deterministic validation, human confirmation and on-chain submission",
+  "main": "backend/server.js",
+  "scripts": {
+    "server": "node backend/server.js",
+    "compile": "hardhat compile",
+    "node": "hardhat node",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "check": "node scripts/check-project.js",
+    "test:capabilities": "node scripts/test-capabilities.js",
+    "test:treasury-atomic": "hardhat test test/treasury-batch-eth.test.js",
+    "test:auto-ai": "node scripts/run-yanfu-ai-pipeline-test.js",
+    "test:human-authority": "node scripts/test-human-authority.js",
+    "test:review-models": "node scripts/test-review-models.js",
+    "test:review-roles": "node scripts/test-review-roles.js",
+    "test:review-policy": "node scripts/test-review-policy.js",
+    "test:security": "node scripts/test-security.js",
+    "test:audit-security": "node audit/yanfu_extended_offline_tests.js && node audit/yanfu_simulator_mock_tests.js && node audit/yanfu_browser_gate_tests.js",
+    "test:treasury": "hardhat test test/treasury-token-code.test.js",
+    "test:reencoding": "node scripts/test-reencoding.js",
+    "test:release-cases": "node scripts/test-release-cases.js",
+    "test:release-gate": "node scripts/run-release-gate.js",
+    "test:live-five-reviewers": "node scripts/test-live-five-reviewers.js",
+    "test:release-assertions": "node scripts/test-release-runner-assertions.js",
+    "test:compiler-diagnostics": "node scripts/test-compiler-diagnostics.js",
+    "test:address-preflight": "node scripts/test-address-preflight.js",
+    "test:evm": "hardhat test",
+    "test:http-evm": "node scripts/test-http-evm.js",
+    "setup": "node scripts/setup-local.js",
+    "check:publication": "node scripts/check-publication.js"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "4.9.6",
+    "axios": "1.21.0",
+    "cors": "2.8.6",
+    "dotenv": "17.4.2",
+    "ethers": "5.8.0",
+    "express": "5.3.0"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "2.2.3",
+    "hardhat": "2.29.1"
+  },
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "overrides": {
+    "@ethersproject/providers": {
+      "ws": "8.21.0"
+    }
+  }
+}

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Review · YanFu Governance Compiler v1.0</title>
+  <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">YF</div>
+      <div class="brand-text"><strong>YanFu Governance Compiler v1.0</strong><span>Independent AI Review</span></div>
+    </div>
+    <nav id="appNav" class="nav"></nav>
+    <div class="sidebar-footer">Choose 1–5 reviewer roles. A model may be reused for different roles; matching model-role pairs are not allowed.</div>
+  </aside>
+
+  <main class="main">
+    <header class="page-header">
+      <div>
+        <h1>Independent proposal review</h1>
+        <p>Choose one to five reviewer roles. The same AI model can review different roles; each slot receives the same chain evidence with its own role-specific instructions.</p>
+      </div>
+      <div id="chainSummary" class="badge">Loading chain…</div>
+    </header>
+
+    <div id="workflowBar" class="workflow"></div>
+
+    <div class="review-primary-grid">
+      <section class="card review-setup-card">
+        <div class="section-heading compact-heading">
+          <div>
+            <h2>1. Set up the review panel</h2>
+            <p>Start with one reviewer or assign up to five role-specific reviewers.</p>
+          </div>
+          <span id="roundBadge" class="badge">Round 1</span>
+        </div>
+
+        <div class="review-count-row">
+          <div>
+            <label for="reviewerCount">Number of reviewers</label>
+            <select id="reviewerCount">
+              <option value="1">1 reviewer</option>
+              <option value="2">2 reviewers</option>
+              <option value="3">3 reviewers</option>
+              <option value="4">4 reviewers</option>
+              <option value="5">5 reviewers</option>
+            </select>
+          </div>
+          <div class="review-rule-note">
+            <strong>Rule</strong>
+            <span>You may reuse an AI model for different roles. Duplicate model + role combinations are not allowed.</span>
+          </div>
+        </div>
+
+        <div id="reviewerSlots" class="reviewer-slot-list"></div>
+        <div id="selectionStatus" class="status">Choose reviewer models and roles.</div>
+
+        <div class="review-run-row">
+          <button id="reviewBtn" class="btn primary">Run review panel</button>
+          <div id="reviewStatus" class="status inline-status">Ready.</div>
+        </div>
+
+        <div class="proposal-context-card">
+          <div class="proposal-context-title">
+            <strong>Proposal under review</strong>
+            <span id="proposalFingerprint" class="badge">No proposal</span>
+          </div>
+          <div id="proposalSummary" class="proposal-summary muted">Generate a proposal first.</div>
+          <details>
+            <summary class="muted">View complete proposal JSON</summary>
+            <pre id="proposalPreview" style="margin-top:12px">No proposal loaded.</pre>
+          </details>
+        </div>
+      </section>
+
+      <section class="card review-decision-card">
+        <div class="section-heading compact-heading">
+          <div>
+            <h2>2. Panel decision</h2>
+            <p>The panel result summarizes the reviewers without hiding disagreement.</p>
+          </div>
+          <div id="aggregateVerdict"></div>
+        </div>
+
+        <div id="consensusEmpty" class="empty-state">Run the review panel to see its decision.</div>
+
+        <div id="consensusContent" hidden>
+          <div class="decision-metrics">
+            <div><span class="metric-label">Agreement</span><strong id="agreementValue">—</strong></div>
+            <div><span class="metric-label">Reviewers</span><strong id="reviewerCountValue">—</strong></div>
+            <div><span class="metric-label">Next action</span><strong id="nextActionValue">—</strong></div>
+          </div>
+
+          <div class="decision-summary-box">
+            <span class="metric-label">Panel summary</span>
+            <p id="consensusSummary"></p>
+          </div>
+
+          <div id="aggregateAdjustments"></div>
+
+          <div id="aggregateRevisionPanel" class="revision-panel" hidden>
+            <h3>Recommended revised proposal</h3>
+            <p class="muted small">This remains natural-language input. YanFu sends it back through the compiler; it is never submitted directly on-chain.</p>
+            <textarea id="aggregateRevision" readonly></textarea>
+            <div class="actions">
+              <button id="useAggregateRevision" class="btn primary">Use this in compiler</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-next-actions">
+          <a class="btn" href="generate.html">Back to Generate</a>
+          <a id="continueHumanBtn" class="btn success locked" href="editor.html" aria-disabled="true" title="Run the AI Review Panel first">Human Confirm & Submit</a>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:20px">
+      <div class="section-heading compact-heading">
+        <div>
+          <h2>3. Reviewer reports</h2>
+          <p>Reviewers share mandatory safety blockers, but each role has a distinct mission and evidence checklist. A shared verdict does not mean the same analysis.</p>
+        </div>
+      </div>
+      <div id="sharedReviewBlockers" class="review-shared-blockers" hidden></div>
+      <div id="reviewerResults" class="reviewer-report-list">
+        <div class="empty-state">No reviewer reports yet.</div>
+      </div>
+    </section>
+
+    <section class="card evidence-card" style="margin-top:20px">
+      <details>
+        <summary><strong>Shared deterministic evidence</strong> <span class="muted small">— same chain snapshot and simulation for every reviewer</span></summary>
+        <pre id="evidenceOutput" style="margin-top:14px">No review evidence yet.</pre>
+      </details>
+    </section>
+  </main>
+</div>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/state.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/models.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/review.js"></script>
+</body>
+</html>

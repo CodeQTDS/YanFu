@@ -1,0 +1,50 @@
+{
+  "projectName": "YanFu Governance Compiler",
+  "projectCode": "YANFU_GOVERNANCE_COMPILER",
+  "version": "1.0.0",
+  "apiVersion": "v2",
+  "frontend": {
+    "apiBaseUrl": "http://127.0.0.1:3000",
+    "persistWorkflowInLocalStorage": true,
+    "allowAdvancedJsonEditor": true
+  },
+  "logging": {
+    "enabled": true,
+    "level": "verbose",
+    "pretty": true,
+    "slowRequestMs": 5000,
+    "showRequestPreview": true,
+    "maxPreviewLength": 160,
+    "showErrorStackInDebug": true,
+    "noisyRoutes": [
+      "/api/config/public",
+      "/api/config/chain-context",
+      "/api/models"
+    ]
+  },
+  "workflow": {
+    "requireAnalysisBeforeReview": true,
+    "requireReviewBeforeSubmit": true,
+    "requireApprovedReviewForSubmit": true,
+    "allowHumanReviewOverride": true,
+    "requireValidationAfterEdit": true,
+    "requireFreshChainContextBeforeSubmit": true,
+    "automaticCompilerReviewerLoop": false,
+    "humanEditOverride": {
+      "enabled": true,
+      "requirePreviousReviewSession": true,
+      "requireFreshValidation": true,
+      "requireRiskAcknowledgement": true,
+      "requireWrittenReason": false,
+      "minimumReasonLength": 0,
+      "riskStatement": "This proposal was edited by a human after its last AI review. The current proposal fingerprint has not been reviewed by the AI panel. Fresh deterministic validation can detect encoding, permission and current-state execution problems, but it does not replace semantic, policy, economic or governance review. By continuing without AI re-review, the human reviewer accepts responsibility for the unreviewed changes."
+    },
+    "enforceSequentialStages": true,
+    "reviewResultOverride": {
+      "enabled": true,
+      "requireAcknowledgement": true,
+      "requireWrittenReason": false,
+      "riskStatement": "The AI review panel did not approve this exact proposal fingerprint. A human may still exercise final authority after reviewing the proposal and fresh validation evidence. Proceeding means the human explicitly accepts the unresolved AI-review findings or reviewer failures."
+    }
+  }
+}
